@@ -7,7 +7,6 @@ interface FormErrors {
   timeOfDay?: string
   activities?: string
   dietaryRestrictions?: string
-  locationPreference?: string
 }
 
 interface DateFinderFormProps {
@@ -21,8 +20,7 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
     timeOfDay: [],
     activities: [],
     accessibility: false,
-    dietaryRestrictions: [],
-    locationPreference: ''
+    dietaryRestrictions: []
   })
   const [errors, setErrors] = useState<FormErrors>({})
 
@@ -87,10 +85,6 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
     
     if (formData.dietaryRestrictions.length > 0 && formData.activities.includes('Food & Drink')) {
       newErrors.dietaryRestrictions = 'Please select at least one dietary option'
-    }
-    
-    if (formData.locationPreference === '') {
-      newErrors.locationPreference = 'Please select a location preference'
     }
 
     setErrors(newErrors)
@@ -243,37 +237,14 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         </div>
       )}
 
-      {/* Location Preference Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Location Preference</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {['indoor', 'outdoor'].map((preference) => (
-            <label key={preference} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.locationPreference === preference
-                ? 'bg-primary-50 border-primary-500 text-primary-700'
-                : 'hover:bg-gray-50'
-            }`}>
-              <input
-                type="radio"
-                name="locationPreference"
-                value={preference}
-                checked={formData.locationPreference === preference}
-                onChange={(e) => handleChange('locationPreference', e.target.value)}
-                className="sr-only"
-              />
-              <span className="capitalize">{preference}</span>
-            </label>
-          ))}
-        </div>
-        {errors.locationPreference && <p className="mt-1 text-sm text-red-600">{errors.locationPreference}</p>}
+      <div className="mt-8">
+        <button
+          type="submit"
+          className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+        >
+          Find Date Ideas
+        </button>
       </div>
-
-      <button
-        type="submit"
-        className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-      >
-        Find Date Ideas
-      </button>
     </form>
   )
 } 
