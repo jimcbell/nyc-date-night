@@ -29,52 +29,34 @@ function App() {
     setKey(prev => prev + 1)
   }
 
-  const filteredIdeas = preferences ? dateIdeas.filter((idea: DateIdea) => {
-    // Budget filter
-    if (preferences.budget && idea.cost !== preferences.budget) {
-      return false
-    }
+  const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
+    return dateIdeas.filter(idea => {
+      // Check if the idea matches any of the selected activity types
+      const matchesActivityType = preferences.activities.length === 0 || 
+        preferences.activities.some(activity => idea.type === activity);
 
-    // Neighborhood filter
-    if (preferences.neighborhoods.length > 0 && !preferences.neighborhoods.includes(idea.location)) {
-      return false
-    }
+      // Check if the idea matches any of the selected time of day options
+      const matchesTimeOfDay = preferences.timeOfDay.length === 0 || 
+        preferences.timeOfDay.some(time => idea.timeOfDay === time);
 
-    // Time of day filter
-    if (preferences.timeOfDay.length > 0 && !preferences.timeOfDay.includes(idea.timeOfDay)) {
-      return false
-    }
+      return (
+        matchesActivityType &&
+        matchesTimeOfDay &&
+        (!preferences.budget || idea.cost === preferences.budget) &&
+        (!preferences.neighborhoods.length || preferences.neighborhoods.includes(idea.location)) &&
+        (!preferences.accessibility || idea.accessibility) &&
+        (!preferences.dietaryRestrictions.length || 
+          preferences.dietaryRestrictions.every(restriction => 
+            idea.dietaryOptions.includes(restriction)
+          )) &&
+        (!preferences.locationPreference || 
+          (preferences.locationPreference === 'indoor' && idea.indoor) ||
+          (preferences.locationPreference === 'outdoor' && !idea.indoor))
+      );
+    });
+  };
 
-    // Activities filter
-    if (preferences.activities.length > 0 && !preferences.activities.includes(idea.type)) {
-      return false
-    }
-
-    // Accessibility filter
-    if (preferences.accessibility && !idea.accessibility) {
-      return false
-    }
-
-    // Dietary restrictions filter
-    if (preferences.dietaryRestrictions.length > 0) {
-      const hasMatchingDietaryOption = preferences.dietaryRestrictions.some(restriction =>
-        idea.dietaryOptions.includes(restriction)
-      )
-      if (!hasMatchingDietaryOption) {
-        return false
-      }
-    }
-
-    // Location preference filter
-    if (preferences.locationPreference === 'indoor' && !idea.indoor) {
-      return false
-    }
-    if (preferences.locationPreference === 'outdoor' && idea.indoor) {
-      return false
-    }
-
-    return true
-  }) : []
+  const filteredIdeas = preferences ? filterDateIdeas(preferences) : []
 
   return (
     <div className="min-h-screen bg-gray-50">
