@@ -149,8 +149,8 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
       {/* Time of Day Section */}
       <div>
         <h3 className="text-lg font-medium text-gray-900 mb-4">Time of Day</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {['Morning', 'Noon', 'Afternoon', 'Evening', 'Late Night'].map((time) => (
+        <div className="grid grid-cols-2 gap-4">
+          {['Daytime', 'Nighttime'].map((time) => (
             <label key={time} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
               <input
                 type="checkbox"
