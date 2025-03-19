@@ -11,7 +11,6 @@ export interface DatePreferences {
   activities: string[]
   accessibility: boolean
   dietaryRestrictions: string[]
-  locationPreference: string
 }
 
 function App() {
@@ -30,30 +29,55 @@ function App() {
 
   const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
     return dateIdeas.filter(idea => {
-      // Check if the idea matches any of the selected activity types
-      const matchesActivityType = preferences.activities.length === 0 || 
-        preferences.activities.some(activity => idea.type === activity);
+      // Budget filter - allow matching or lower budget
+      const budgetLevels = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
+      const ideaBudgetLevel = budgetLevels[idea.cost as keyof typeof budgetLevels]
+      const preferenceBudgetLevel = budgetLevels[preferences.budget as keyof typeof budgetLevels]
+      const budgetMatch = ideaBudgetLevel <= preferenceBudgetLevel
 
-      // Check if the idea matches any of the selected time of day options
-      const matchesTimeOfDay = preferences.timeOfDay.length === 0 || 
-        preferences.timeOfDay.some(time => idea.timeOfDay === time);
+      // Neighborhood filter - match if idea's location contains any selected neighborhood
+      const neighborhoodMatch = preferences.neighborhoods.some(neighborhood => 
+        idea.location.toLowerCase().includes(neighborhood.toLowerCase())
+      )
 
-      return (
-        matchesActivityType &&
-        matchesTimeOfDay &&
-        (!preferences.budget || idea.cost === preferences.budget) &&
-        (!preferences.neighborhoods.length || preferences.neighborhoods.includes(idea.location)) &&
-        (!preferences.accessibility || idea.accessibility) &&
-        (!preferences.dietaryRestrictions.length || 
-          preferences.dietaryRestrictions.every(restriction => 
-            idea.dietaryOptions.includes(restriction)
-          )) &&
-        (!preferences.locationPreference || 
-          (preferences.locationPreference === 'indoor' && idea.indoor) ||
-          (preferences.locationPreference === 'outdoor' && !idea.indoor))
-      );
-    });
-  };
+      // Time of day filter - match if idea's time matches any selected time
+      const timeMatch = preferences.timeOfDay.some(time => 
+        idea.timeOfDay.toLowerCase() === time.toLowerCase()
+      )
+
+      // Activity type filter - match if idea's type matches any selected activity
+      const activityMatch = preferences.activities.some(activity => {
+        // Map form activities to idea types
+        const activityMap: { [key: string]: string[] } = {
+          'Food & Drink': ['Dining'],
+          'Arts & Culture': ['Culture'],
+          'Outdoor': ['Active'],
+          'Entertainment': ['Entertainment'],
+          'Shopping': ['Shopping'],
+          'Sports & Recreation': ['Active']
+        }
+        return activityMap[activity]?.includes(idea.type) || false
+      })
+
+      // Accessibility filter - only apply if accessibility is required
+      const accessibilityMatch = !preferences.accessibility || idea.accessibility
+
+      // Dietary restrictions filter - only apply if food/drink is selected and restrictions are specified
+      const dietaryMatch = !preferences.activities.includes('Food & Drink') || 
+        preferences.dietaryRestrictions.length === 0 ||
+        preferences.dietaryRestrictions.some(restriction => 
+          idea.dietaryOptions.includes(restriction)
+        )
+
+      // Return true if all filters pass
+      return budgetMatch && 
+        neighborhoodMatch && 
+        timeMatch && 
+        activityMatch && 
+        accessibilityMatch && 
+        dietaryMatch
+    })
+  }
 
   const filteredIdeas = preferences ? filterDateIdeas(preferences) : []
 

@@ -111,7 +111,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Budget</h3>
         <div className="grid grid-cols-2 gap-4">
           {['$', '$$', '$$$', '$$$$'].map((option) => (
-            <label key={option} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+            <label key={option} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+              formData.budget === option 
+                ? 'bg-primary-50 border-primary-500 text-primary-700' 
+                : 'hover:bg-gray-50'
+            }`}>
               <input
                 type="radio"
                 name="budget"
@@ -132,7 +136,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Neighborhoods</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((neighborhood) => (
-            <label key={neighborhood} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+            <label key={neighborhood} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+              formData.neighborhoods.includes(neighborhood)
+                ? 'bg-primary-50 border-primary-500 text-primary-700'
+                : 'hover:bg-gray-50'
+            }`}>
               <input
                 type="checkbox"
                 checked={formData.neighborhoods.includes(neighborhood)}
@@ -151,7 +159,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Time of Day</h3>
         <div className="grid grid-cols-2 gap-4">
           {['Daytime', 'Nighttime'].map((time) => (
-            <label key={time} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+            <label key={time} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+              formData.timeOfDay.includes(time)
+                ? 'bg-primary-50 border-primary-500 text-primary-700'
+                : 'hover:bg-gray-50'
+            }`}>
               <input
                 type="checkbox"
                 checked={formData.timeOfDay.includes(time)}
@@ -170,7 +182,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Activities</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {['Food & Drink', 'Arts & Culture', 'Outdoor', 'Entertainment', 'Shopping', 'Sports & Recreation'].map((activity) => (
-            <label key={activity} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+            <label key={activity} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+              formData.activities.includes(activity)
+                ? 'bg-primary-50 border-primary-500 text-primary-700'
+                : 'hover:bg-gray-50'
+            }`}>
               <input
                 type="checkbox"
                 checked={formData.activities.includes(activity)}
@@ -187,7 +203,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
       {/* Accessibility Section */}
       <div>
         <h3 className="text-lg font-medium text-gray-900 mb-4">Accessibility</h3>
-        <label className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+        <label className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+          formData.accessibility
+            ? 'bg-primary-50 border-primary-500 text-primary-700'
+            : 'hover:bg-gray-50'
+        }`}>
           <input
             type="checkbox"
             checked={formData.accessibility}
@@ -204,7 +224,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
           <h3 className="text-lg font-medium text-gray-900 mb-4">Dietary Restrictions</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {['Vegetarian', 'Vegan', 'Gluten-Free', 'Halal', 'Kosher'].map((restriction) => (
-              <label key={restriction} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={restriction} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+                formData.dietaryRestrictions.includes(restriction)
+                  ? 'bg-primary-50 border-primary-500 text-primary-700'
+                  : 'hover:bg-gray-50'
+              }`}>
                 <input
                   type="checkbox"
                   checked={formData.dietaryRestrictions.includes(restriction)}
@@ -224,7 +248,11 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Location Preference</h3>
         <div className="grid grid-cols-2 gap-4">
           {['indoor', 'outdoor'].map((preference) => (
-            <label key={preference} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+            <label key={preference} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
+              formData.locationPreference === preference
+                ? 'bg-primary-50 border-primary-500 text-primary-700'
+                : 'hover:bg-gray-50'
+            }`}>
               <input
                 type="radio"
                 name="locationPreference"
