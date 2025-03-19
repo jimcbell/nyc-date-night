@@ -7,7 +7,6 @@ import { dateIdeas, DateIdea } from './data/dateIdeas'
 export interface DatePreferences {
   budget: string
   neighborhoods: string[]
-  date: string
   timeOfDay: string[]
   activities: string[]
   accessibility: boolean

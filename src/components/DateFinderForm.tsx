@@ -1,207 +1,251 @@
-import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { DatePreferences } from '../App'
 
-const NEIGHBORHOODS = [
-  'Manhattan - Upper East Side',
-  'Manhattan - Upper West Side',
-  'Manhattan - Midtown',
-  'Manhattan - Lower East Side',
-  'Manhattan - West Village',
-  'Manhattan - East Village',
-  'Brooklyn - Williamsburg',
-  'Brooklyn - DUMBO',
-  'Brooklyn - Park Slope',
-]
-
-const ACTIVITIES = [
-  'Dining',
-  'Culture',
-  'Active',
-  'Entertainment',
-]
-
-const DIETARY_RESTRICTIONS = [
-  'Vegetarian',
-  'Vegan',
-  'Gluten-Free',
-  'Kosher',
-  'Halal',
-]
+interface FormErrors {
+  budget?: string
+  neighborhoods?: string
+  timeOfDay?: string
+  activities?: string
+  dietaryRestrictions?: string
+  locationPreference?: string
+}
 
 interface DateFinderFormProps {
   onSubmit: (data: DatePreferences) => void
 }
 
 export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<DatePreferences>({
-    defaultValues: {
-      budget: '',
-      neighborhoods: [],
-      date: '',
-      timeOfDay: [],
-      activities: [],
-      accessibility: false,
-      dietaryRestrictions: [],
-      locationPreference: 'any'
-    }
+  const [formData, setFormData] = useState<DatePreferences>({
+    budget: '',
+    neighborhoods: [],
+    timeOfDay: [],
+    activities: [],
+    accessibility: false,
+    dietaryRestrictions: [],
+    locationPreference: ''
   })
+  const [errors, setErrors] = useState<FormErrors>({})
 
-  const timeOfDay = watch('timeOfDay')
+  const handleChange = (field: keyof DatePreferences, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleNeighborhoodChange = (neighborhood: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      neighborhoods: checked 
+        ? [...prev.neighborhoods, neighborhood]
+        : prev.neighborhoods.filter(n => n !== neighborhood)
+    }))
+  }
+
+  const handleTimeOfDayChange = (time: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      timeOfDay: checked
+        ? [...prev.timeOfDay, time]
+        : prev.timeOfDay.filter(t => t !== time)
+    }))
+  }
+
+  const handleActivityChange = (activity: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      activities: checked
+        ? [...prev.activities, activity]
+        : prev.activities.filter(a => a !== activity)
+    }))
+  }
+
+  const handleDietaryChange = (restriction: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      dietaryRestrictions: checked
+        ? [...prev.dietaryRestrictions, restriction]
+        : prev.dietaryRestrictions.filter(r => r !== restriction)
+    }))
+  }
+
+  const validateForm = () => {
+    const newErrors: FormErrors = {}
+    
+    if (!formData.budget) {
+      newErrors.budget = 'Please select a budget'
+    }
+    
+    if (formData.neighborhoods.length === 0) {
+      newErrors.neighborhoods = 'Please select at least one neighborhood'
+    }
+
+    if (formData.timeOfDay.length === 0) {
+      newErrors.timeOfDay = 'Please select at least one time of day'
+    }
+    
+    if (formData.activities.length === 0) {
+      newErrors.activities = 'Please select at least one activity type'
+    }
+    
+    if (formData.dietaryRestrictions.length > 0 && formData.activities.includes('Food & Drink')) {
+      newErrors.dietaryRestrictions = 'Please select at least one dietary option'
+    }
+    
+    if (formData.locationPreference === '') {
+      newErrors.locationPreference = 'Please select a location preference'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (validateForm()) {
+      onSubmit(formData)
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       {/* Budget Section */}
-      <div className="form-section">
-        <h3 className="form-section-title">Budget Range</h3>
-        <select
-          id="budget"
-          {...register('budget', { required: 'Budget is required' })}
-          className="input"
-        >
-          <option value="">Select a budget range</option>
-          <option value="$">$ (Under $50)</option>
-          <option value="$$">$$ ($50-$100)</option>
-          <option value="$$$">$$$ ($100-$200)</option>
-          <option value="$$$$">$$$$ ($200+)</option>
-        </select>
-        {errors.budget && (
-          <p className="mt-1 text-sm text-red-600">{errors.budget.message}</p>
-        )}
-      </div>
-
-      {/* Neighborhood Section */}
-      <div className="form-section">
-        <h3 className="form-section-title">Neighborhood Preferences</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {NEIGHBORHOODS.map((neighborhood) => (
-            <div key={neighborhood} className="flex items-center">
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Budget</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {['$', '$$', '$$$', '$$$$'].map((option) => (
+            <label key={option} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
               <input
-                type="checkbox"
-                {...register('neighborhoods')}
-                value={neighborhood}
-                className="checkbox"
+                type="radio"
+                name="budget"
+                value={option}
+                checked={formData.budget === option}
+                onChange={(e) => handleChange('budget', e.target.value)}
+                className="sr-only"
               />
-              <label className="checkbox-label">
-                {neighborhood}
-              </label>
-            </div>
+              <span className="text-lg font-medium">{option}</span>
+            </label>
           ))}
         </div>
+        {errors.budget && <p className="mt-1 text-sm text-red-600">{errors.budget}</p>}
       </div>
 
-      {/* Date and Time Section */}
-      <div className="form-section">
-        <h3 className="form-section-title">Date and Time</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="form-label">Date</label>
-            <input
-              type="date"
-              {...register('date', { required: 'Date is required' })}
-              className="form-input"
-            />
-            {errors.date && (
-              <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>
-            )}
-          </div>
-          <div>
-            <label className="form-label">Time of Day</label>
-            <div className="grid grid-cols-2 gap-2">
-              {['Morning', 'Noon', 'Afternoon', 'Evening', 'Late Night'].map((time) => (
-                <label key={time} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    {...register('timeOfDay')}
-                    value={time}
-                    className="checkbox"
-                  />
-                  <span className="checkbox-label">{time}</span>
-                </label>
-              ))}
-            </div>
-            {(!timeOfDay || timeOfDay.length === 0) && (
-              <p className="text-red-500 text-sm mt-1">Please select at least one time of day</p>
-            )}
-          </div>
+      {/* Neighborhoods Section */}
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Neighborhoods</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((neighborhood) => (
+            <label key={neighborhood} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <input
+                type="checkbox"
+                checked={formData.neighborhoods.includes(neighborhood)}
+                onChange={(e) => handleNeighborhoodChange(neighborhood, e.target.checked)}
+                className="sr-only"
+              />
+              <span>{neighborhood}</span>
+            </label>
+          ))}
         </div>
+        {errors.neighborhoods && <p className="mt-1 text-sm text-red-600">{errors.neighborhoods}</p>}
+      </div>
+
+      {/* Time of Day Section */}
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Time of Day</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {['Morning', 'Noon', 'Afternoon', 'Evening', 'Late Night'].map((time) => (
+            <label key={time} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <input
+                type="checkbox"
+                checked={formData.timeOfDay.includes(time)}
+                onChange={(e) => handleTimeOfDayChange(time, e.target.checked)}
+                className="sr-only"
+              />
+              <span>{time}</span>
+            </label>
+          ))}
+        </div>
+        {errors.timeOfDay && <p className="mt-1 text-sm text-red-600">{errors.timeOfDay}</p>}
       </div>
 
       {/* Activities Section */}
-      <div className="form-section">
-        <h3 className="form-section-title">Activity Preferences</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {ACTIVITIES.map((activity) => (
-            <div key={activity} className="flex items-center">
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Activities</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {['Food & Drink', 'Arts & Culture', 'Outdoor', 'Entertainment', 'Shopping', 'Sports & Recreation'].map((activity) => (
+            <label key={activity} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
               <input
                 type="checkbox"
-                {...register('activities')}
-                value={activity}
-                className="checkbox"
+                checked={formData.activities.includes(activity)}
+                onChange={(e) => handleActivityChange(activity, e.target.checked)}
+                className="sr-only"
               />
-              <label className="checkbox-label">
-                {activity}
-              </label>
-            </div>
+              <span>{activity}</span>
+            </label>
           ))}
         </div>
+        {errors.activities && <p className="mt-1 text-sm text-red-600">{errors.activities}</p>}
       </div>
 
-      {/* Special Considerations */}
-      <div className="form-section">
-        <h3 className="form-section-title">Special Considerations</h3>
-        <div className="space-y-6">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              {...register('accessibility')}
-              className="checkbox"
-            />
-            <label className="checkbox-label">
-              Accessibility Required
-            </label>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Dietary Restrictions</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {DIETARY_RESTRICTIONS.map((restriction) => (
-                <div key={restriction} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    {...register('dietaryRestrictions')}
-                    value={restriction}
-                    className="checkbox"
-                  />
-                  <label className="checkbox-label">
-                    {restriction}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Indoor/Outdoor Preference */}
-      <div className="form-section">
-        <h3 className="form-section-title">Location Preference</h3>
-        <div className="flex items-center">
+      {/* Accessibility Section */}
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Accessibility</h3>
+        <label className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
           <input
             type="checkbox"
-            {...register('locationPreference')}
-            value="indoor"
-            className="checkbox"
+            checked={formData.accessibility}
+            onChange={(e) => handleChange('accessibility', e.target.checked)}
+            className="sr-only"
           />
-          <label className="checkbox-label">
-            Indoor Only
-          </label>
-        </div>
+          <span>Wheelchair Accessible</span>
+        </label>
       </div>
 
-      <div className="pt-4">
-        <button type="submit" className="btn btn-primary w-full">
-          Find Date Ideas
-        </button>
+      {/* Dietary Restrictions Section */}
+      {formData.activities.includes('Food & Drink') && (
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Dietary Restrictions</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {['Vegetarian', 'Vegan', 'Gluten-Free', 'Halal', 'Kosher'].map((restriction) => (
+              <label key={restriction} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  checked={formData.dietaryRestrictions.includes(restriction)}
+                  onChange={(e) => handleDietaryChange(restriction, e.target.checked)}
+                  className="sr-only"
+                />
+                <span>{restriction}</span>
+              </label>
+            ))}
+          </div>
+          {errors.dietaryRestrictions && <p className="mt-1 text-sm text-red-600">{errors.dietaryRestrictions}</p>}
+        </div>
+      )}
+
+      {/* Location Preference Section */}
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Location Preference</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {['indoor', 'outdoor'].map((preference) => (
+            <label key={preference} className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <input
+                type="radio"
+                name="locationPreference"
+                value={preference}
+                checked={formData.locationPreference === preference}
+                onChange={(e) => handleChange('locationPreference', e.target.value)}
+                className="sr-only"
+              />
+              <span className="capitalize">{preference}</span>
+            </label>
+          ))}
+        </div>
+        {errors.locationPreference && <p className="mt-1 text-sm text-red-600">{errors.locationPreference}</p>}
       </div>
+
+      <button
+        type="submit"
+        className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+      >
+        Find Date Ideas
+      </button>
     </form>
   )
 } 
