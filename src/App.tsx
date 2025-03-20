@@ -41,9 +41,18 @@ function App() {
       )
 
       // Time of day filter - match if idea's time matches any selected time
-      const timeMatch = preferences.timeOfDay.some(time => 
-        idea.timeOfDay.toLowerCase() === time.toLowerCase()
-      )
+      const timeMatch = preferences.timeOfDay.some(time => {
+        // If user selected "Any", match any time of day
+        if (time.toLowerCase() === 'any') {
+          return true;
+        }
+        // If idea is marked as "Any", it matches any user preference
+        if (idea.timeOfDay.toLowerCase() === 'any') {
+          return true;
+        }
+        // Otherwise, match exact time
+        return idea.timeOfDay.toLowerCase() === time.toLowerCase();
+      })
 
       // Activity type filter - match if idea's type matches any selected activity
       const activityMatch = preferences.activities.some(activity => {
