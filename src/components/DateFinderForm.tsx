@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
+import { dateIdeas } from '../data/dateIdeas'
 
 interface FormErrors {
   budget?: string
@@ -23,6 +24,49 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
     dietaryRestrictions: []
   })
   const [errors, setErrors] = useState<FormErrors>({})
+  const [availableActivities, setAvailableActivities] = useState<string[]>(['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'])
+
+  const checkAvailableActivities = () => {
+    const available = ['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].filter(activity => {
+      // Map form activities to idea types
+      const activityMap: { [key: string]: string[] } = {
+        'Food & Drink': ['Dining'],
+        'Arts & Culture': ['Culture'],
+        'Outdoor & Sports': ['Active'],
+        'Entertainment': ['Entertainment']
+      }
+
+      // Check if any ideas match the current filters for this activity type
+      return dateIdeas.some(idea => {
+        // Budget match
+        const budgetMatch = formData.budget.length === 0 || formData.budget.includes(idea.cost)
+        
+        // Neighborhood match
+        const neighborhoodMatch = formData.neighborhoods.length === 0 || 
+          formData.neighborhoods.some(neighborhood => 
+            idea.location.toLowerCase().includes(neighborhood.toLowerCase())
+          )
+        
+        // Time of day match
+        const timeMatch = formData.timeOfDay.length === 0 || formData.timeOfDay.some(time => {
+          if (time.toLowerCase() === 'any') return true
+          if (idea.timeOfDay.toLowerCase() === 'any') return true
+          return idea.timeOfDay.toLowerCase() === time.toLowerCase()
+        })
+
+        // Activity type match
+        const activityTypeMatch = activityMap[activity]?.includes(idea.type)
+
+        return budgetMatch && neighborhoodMatch && timeMatch && activityTypeMatch
+      })
+    })
+
+    setAvailableActivities(available)
+  }
+
+  useEffect(() => {
+    checkAvailableActivities()
+  }, [formData.budget, formData.neighborhoods, formData.timeOfDay])
 
   const handleChange = (field: keyof DatePreferences, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -182,21 +226,30 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
       <div>
         <h3 className="text-lg font-medium text-gray-900 mb-4">Activities</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].map((activity) => (
-            <label key={activity} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.activities.includes(activity)
-                ? 'bg-primary-50 border-primary-500 text-primary-700'
-                : 'hover:bg-gray-50'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.activities.includes(activity)}
-                onChange={(e) => handleActivityChange(activity, e.target.checked)}
-                className="sr-only"
-              />
-              <span>{activity}</span>
-            </label>
-          ))}
+          {['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].map((activity) => {
+            const isAvailable = availableActivities.includes(activity)
+            return (
+              <label 
+                key={activity} 
+                className={`relative flex items-center p-4 border rounded-lg transition-colors ${
+                  !isAvailable 
+                    ? 'bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed'
+                    : formData.activities.includes(activity)
+                      ? 'bg-primary-50 border-primary-500 text-primary-700'
+                      : 'hover:bg-gray-50 cursor-pointer'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={formData.activities.includes(activity)}
+                  onChange={(e) => handleActivityChange(activity, e.target.checked)}
+                  disabled={!isAvailable}
+                  className="sr-only"
+                />
+                <span>{activity}</span>
+              </label>
+            )
+          })}
         </div>
         {errors.activities && <p className="mt-1 text-sm text-red-600">{errors.activities}</p>}
       </div>
