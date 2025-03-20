@@ -5,7 +5,7 @@ import Ad from './components/Ad'
 import { dateIdeas, DateIdea } from './data/dateIdeas'
 
 export interface DatePreferences {
-  budget: string
+  budget: string[]
   neighborhoods: string[]
   timeOfDay: string[]
   activities: string[]
@@ -29,11 +29,12 @@ function App() {
 
   const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
     return dateIdeas.filter(idea => {
-      // Budget filter - allow matching or lower budget
+      // Budget filter - only show activities within selected budget ranges
       const budgetLevels = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
       const ideaBudgetLevel = budgetLevels[idea.cost as keyof typeof budgetLevels]
-      const preferenceBudgetLevel = budgetLevels[preferences.budget as keyof typeof budgetLevels]
-      const budgetMatch = ideaBudgetLevel <= preferenceBudgetLevel
+      const budgetMatch = preferences.budget.some(budget => 
+        ideaBudgetLevel === budgetLevels[budget as keyof typeof budgetLevels]
+      )
 
       // Neighborhood filter - match if idea's location contains any selected neighborhood
       const neighborhoodMatch = preferences.neighborhoods.some(neighborhood => 

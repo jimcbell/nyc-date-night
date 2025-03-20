@@ -15,7 +15,7 @@ interface DateFinderFormProps {
 
 export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
   const [formData, setFormData] = useState<DatePreferences>({
-    budget: '',
+    budget: [],
     neighborhoods: [],
     timeOfDay: [],
     activities: [],
@@ -64,11 +64,20 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
     }))
   }
 
+  const handleBudgetChange = (budget: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      budget: checked
+        ? [...prev.budget, budget]
+        : prev.budget.filter(b => b !== budget)
+    }))
+  }
+
   const validateForm = () => {
     const newErrors: FormErrors = {}
     
-    if (!formData.budget) {
-      newErrors.budget = 'Please select a budget'
+    if (formData.budget.length === 0) {
+      newErrors.budget = 'Please select at least one budget option'
     }
     
     if (formData.neighborhoods.length === 0) {
@@ -106,16 +115,14 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
         <div className="grid grid-cols-2 gap-4">
           {['$', '$$', '$$$', '$$$$'].map((option) => (
             <label key={option} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.budget === option 
-                ? 'bg-primary-50 border-primary-500 text-primary-700' 
+              formData.budget.includes(option)
+                ? 'bg-primary-50 border-primary-500 text-primary-700'
                 : 'hover:bg-gray-50'
             }`}>
               <input
-                type="radio"
-                name="budget"
-                value={option}
-                checked={formData.budget === option}
-                onChange={(e) => handleChange('budget', e.target.value)}
+                type="checkbox"
+                checked={formData.budget.includes(option)}
+                onChange={(e) => handleBudgetChange(option, e.target.checked)}
                 className="sr-only"
               />
               <span className="text-lg font-medium">{option}</span>
