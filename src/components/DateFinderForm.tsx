@@ -175,7 +175,7 @@ export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
       <div>
         <h3 className="text-lg font-medium text-gray-900 mb-4">Activities</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {['Food & Drink', 'Arts & Culture', 'Outdoor', 'Entertainment', 'Shopping', 'Sports & Recreation'].map((activity) => (
+          {['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].map((activity) => (
             <label key={activity} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
               formData.activities.includes(activity)
                 ? 'bg-primary-50 border-primary-500 text-primary-700'

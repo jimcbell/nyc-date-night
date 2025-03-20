@@ -51,10 +51,8 @@ function App() {
         const activityMap: { [key: string]: string[] } = {
           'Food & Drink': ['Dining'],
           'Arts & Culture': ['Culture'],
-          'Outdoor': ['Active'],
-          'Entertainment': ['Entertainment'],
-          'Shopping': ['Shopping'],
-          'Sports & Recreation': ['Active']
+          'Outdoor & Sports': ['Active'],
+          'Entertainment': ['Entertainment']
         }
         return activityMap[activity]?.includes(idea.type) || false
       })
