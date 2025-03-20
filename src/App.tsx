@@ -27,6 +27,10 @@ function App() {
     setKey(prev => prev + 1)
   }
 
+  const handleBackToForm = () => {
+    setShowResults(false)
+  }
+
   const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
     return dateIdeas.filter(idea => {
       // Budget filter - only show activities within selected budget ranges
@@ -70,20 +74,14 @@ function App() {
       // Accessibility filter - only apply if accessibility is required
       const accessibilityMatch = !preferences.accessibility || idea.accessibility
 
-      // Dietary restrictions filter - only apply if food/drink is selected and restrictions are specified
+      // Dietary restrictions filter - only apply if food & drink is selected and restrictions are specified
       const dietaryMatch = !preferences.activities.includes('Food & Drink') || 
         preferences.dietaryRestrictions.length === 0 ||
         preferences.dietaryRestrictions.some(restriction => 
           idea.dietaryOptions.includes(restriction)
         )
 
-      // Return true if all filters pass
-      return budgetMatch && 
-        neighborhoodMatch && 
-        timeMatch && 
-        activityMatch && 
-        accessibilityMatch && 
-        dietaryMatch
+      return budgetMatch && neighborhoodMatch && timeMatch && activityMatch && accessibilityMatch && dietaryMatch
     })
   }
 
@@ -132,7 +130,7 @@ function App() {
                 <h2 className="text-xl font-semibold text-gray-900 mb-6">
                   Find Your Perfect Date Night
                 </h2>
-                <DateFinderForm onSubmit={handleSubmit} />
+                <DateFinderForm onSubmit={handleSubmit} initialPreferences={preferences} />
               </div>
             </div>
           </div>
@@ -142,7 +140,7 @@ function App() {
               <ResultsView 
                 key={key}
                 preferences={preferences!} 
-                onBack={() => setShowResults(false)}
+                onBack={handleBackToForm}
                 onRegenerate={handleRegenerate}
                 filteredIdeas={filteredIdeas}
               />

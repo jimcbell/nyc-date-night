@@ -12,19 +12,27 @@ interface FormErrors {
 
 interface DateFinderFormProps {
   onSubmit: (data: DatePreferences) => void
+  initialPreferences?: DatePreferences | null
 }
 
-export default function DateFinderForm({ onSubmit }: DateFinderFormProps) {
+export default function DateFinderForm({ onSubmit, initialPreferences }: DateFinderFormProps) {
   const [formData, setFormData] = useState<DatePreferences>({
-    budget: [],
-    neighborhoods: [],
-    timeOfDay: [],
-    activities: [],
-    accessibility: false,
-    dietaryRestrictions: []
+    budget: initialPreferences?.budget || [],
+    neighborhoods: initialPreferences?.neighborhoods || [],
+    timeOfDay: initialPreferences?.timeOfDay || [],
+    activities: initialPreferences?.activities || [],
+    accessibility: initialPreferences?.accessibility || false,
+    dietaryRestrictions: initialPreferences?.dietaryRestrictions || []
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [availableActivities, setAvailableActivities] = useState<string[]>(['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'])
+
+  // Update form data when initialPreferences changes
+  useEffect(() => {
+    if (initialPreferences) {
+      setFormData(initialPreferences)
+    }
+  }, [initialPreferences])
 
   const checkAvailableActivities = () => {
     const available = ['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].filter(activity => {
