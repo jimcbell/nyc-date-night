@@ -1,6 +1,7 @@
 # NYC Date Night Finder
 
 A web application that helps you find the perfect date night in New York City based on your preferences.
+
 Deployed to [Azure Static Web Apps](https://wonderful-plant-0e3de160f.6.azurestaticapps.net/)
 
 ## Features
