@@ -4,7 +4,7 @@ import { DateIdea } from '../data/dateIdeas'
 import { getPriceRangeText, getTicketText } from '../utils/priceUtils'
 import Ad from './Ad'
 import BudgetFilter from './BudgetFilter'
-import { MapPinIcon, ClockIcon, TagIcon, UserIcon, CloudIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, ClockIcon, TagIcon, UserIcon, CloudIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon } from '@heroicons/react/24/outline'
 
 interface ResultsViewProps {
   preferences: DatePreferences
@@ -49,34 +49,44 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-4">
         {/* Location */}
-        <span className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm">
-          <MapPinIcon className="w-4 h-4 mr-1" />
+        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm whitespace-nowrap">
+          <MapPinIcon className="w-4 h-4 mr-1.5 flex-shrink-0" />
           {idea.neighborhood}
         </span>
 
         {/* Activity Type */}
-        <span className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm">
+        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm whitespace-nowrap">
+          {(() => {
+            const activityIcons = {
+              'Dining': BeakerIcon,
+              'Culture': PaintBrushIcon,
+              'Active': UserGroupIcon,
+              'Entertainment': TicketIcon
+            }
+            const Icon = activityIcons[idea.activityType as keyof typeof activityIcons]
+            return Icon ? <Icon className="w-4 h-4 mr-1.5 flex-shrink-0" /> : null
+          })()}
           {idea.activityType}
         </span>
 
         {/* Time of Day */}
-        <span className="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm">
-          <ClockIcon className="w-4 h-4 mr-1" />
-          {idea.timeOfDay.join(', ')}
+        <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm whitespace-nowrap">
+          <ClockIcon className="w-4 h-4 mr-1.5 flex-shrink-0" />
+          {idea.timeOfDay.join(' & ')}
         </span>
 
         {/* Accessibility */}
         {idea.accessibility.length > 0 && (
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
-            <UserIcon className="w-4 h-4 mr-1" />
+          <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-green-100 text-green-700 text-sm whitespace-nowrap">
+            <UserIcon className="w-4 h-4 mr-1.5 flex-shrink-0" />
             Accessible
           </span>
         )}
 
         {/* Weather Dependent */}
         {idea.weatherDependent && (
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-sm">
-            <CloudIcon className="w-4 h-4 mr-1" />
+          <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-amber-100 text-amber-700 text-sm whitespace-nowrap">
+            <CloudIcon className="w-4 h-4 mr-1.5 flex-shrink-0" />
             Weather Dependent
           </span>
         )}

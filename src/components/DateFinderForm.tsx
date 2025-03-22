@@ -164,8 +164,8 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
                     onChange={(e) => handleNeighborhoodChange(neighborhood, e.target.checked)}
                     className="sr-only"
                   />
-                  <MapPinIcon className="option-icon" />
-                  <span>{neighborhood}</span>
+                  <MapPinIcon className="w-5 h-5 mr-2 flex-shrink-0" />
+                  {neighborhood}
                 </label>
               ))}
             </div>
@@ -178,7 +178,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
               <ClockIcon className="w-5 h-5 mr-2 text-teal-500" />
               Time of Day
             </h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { label: 'Daytime', icon: SunIcon },
                 { label: 'Nighttime', icon: MoonIcon },
