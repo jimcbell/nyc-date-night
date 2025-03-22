@@ -4,6 +4,7 @@ import { DateIdea } from '../data/dateIdeas'
 import { getPriceRangeText, getTicketText } from '../utils/priceUtils'
 import Ad from './Ad'
 import BudgetFilter from './BudgetFilter'
+import TicketFilter from './TicketFilter'
 import { MapPinIcon, ClockIcon, TagIcon, UserIcon, CloudIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon } from '@heroicons/react/24/outline'
 
 interface ResultsViewProps {
@@ -14,15 +15,16 @@ interface ResultsViewProps {
 
 export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps) {
   const [selectedBudgets, setSelectedBudgets] = useState<string[]>([])
+  const [noTicketOnly, setNoTicketOnly] = useState(false)
 
-  // Filter ideas by selected budgets
-  const budgetFilteredIdeas = selectedBudgets.length === 0
-    ? filteredIdeas // Show all ideas when no budgets are selected
-    : filteredIdeas.filter(idea => selectedBudgets.includes(idea.priceRange))
+  // Filter ideas by selected budgets and ticket requirement
+  const filteredResults = filteredIdeas
+    .filter(idea => selectedBudgets.length === 0 || selectedBudgets.includes(idea.priceRange))
+    .filter(idea => !noTicketOnly || !idea.requiresTicket)
 
   // Split suggestions into two groups for ad placement
-  const firstGroup = budgetFilteredIdeas.slice(0, 3)
-  const secondGroup = budgetFilteredIdeas.slice(3)
+  const firstGroup = filteredResults.slice(0, 3)
+  const secondGroup = filteredResults.slice(3)
 
   const renderDateIdeaCard = (idea: DateIdea) => (
     <div key={idea.id} className="bg-white rounded-lg shadow-sm p-6 relative">
@@ -112,16 +114,24 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
     <div className="space-y-8">
       {/* Filter Header */}
       <div className="bg-white shadow-sm rounded-lg p-6">
-        <BudgetFilter
-          selectedBudgets={selectedBudgets}
-          onChange={setSelectedBudgets}
-        />
+        <div className="space-y-6">
+          <BudgetFilter
+            selectedBudgets={selectedBudgets}
+            onChange={setSelectedBudgets}
+          />
+          <div className="border-t border-gray-200 pt-6">
+            <TicketFilter
+              noTicketOnly={noTicketOnly}
+              onChange={setNoTicketOnly}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="mt-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">
-            {budgetFilteredIdeas.length} Date {budgetFilteredIdeas.length === 1 ? 'Idea' : 'Ideas'} Found
+            {filteredResults.length} Date {filteredResults.length === 1 ? 'Idea' : 'Ideas'} Found
           </h2>
           <button
             onClick={onBack}
@@ -131,7 +141,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
           </button>
         </div>
 
-        {budgetFilteredIdeas.length === 0 ? (
+        {filteredResults.length === 0 ? (
           <div className="text-center py-12">
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No matches found</h3>
             <p className="text-gray-600">
