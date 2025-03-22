@@ -29,11 +29,11 @@ function App() {
   const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
     return dateIdeas.filter(idea => {
       // Budget filter - only apply if budgets are selected
-      const budgetMatch = preferences.budget.length === 0 || preferences.budget.includes(idea.cost)
+      const budgetMatch = preferences.budget.length === 0 || preferences.budget.includes(idea.priceRange)
 
-      // Neighborhood filter - match if idea's location contains any selected neighborhood
+      // Neighborhood filter - match if idea's neighborhood contains any selected neighborhood
       const neighborhoodMatch = preferences.neighborhoods.some(neighborhood => 
-        idea.location.toLowerCase().includes(neighborhood.toLowerCase())
+        idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
       )
 
       // Time of day filter - match if idea's time matches any selected time
@@ -42,12 +42,8 @@ function App() {
         if (time.toLowerCase() === 'any') {
           return true;
         }
-        // If idea is marked as "Any", it matches any user preference
-        if (idea.timeOfDay.toLowerCase() === 'any') {
-          return true;
-        }
-        // Otherwise, match exact time
-        return idea.timeOfDay.toLowerCase() === time.toLowerCase();
+        // If idea has multiple times, check if any match
+        return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase());
       })
 
       // Activity type filter - match if idea's type matches any selected activity
@@ -59,17 +55,17 @@ function App() {
           'Outdoor & Sports': ['Active'],
           'Entertainment': ['Entertainment']
         }
-        return activityMap[activity]?.includes(idea.type) || false
+        return activityMap[activity]?.includes(idea.activityType) || false
       })
 
       // Accessibility filter - only apply if accessibility is required
-      const accessibilityMatch = !preferences.accessibility || idea.accessibility
+      const accessibilityMatch = !preferences.accessibility || idea.accessibility.length > 0
 
       // Dietary restrictions filter - only apply if food & drink is selected and restrictions are specified
       const dietaryMatch = !preferences.activities.includes('Food & Drink') || 
         preferences.dietaryRestrictions.length === 0 ||
         preferences.dietaryRestrictions.some(restriction => 
-          idea.dietaryOptions.includes(restriction)
+          idea.dietaryOptions.includes(restriction.toLowerCase())
         )
 
       return budgetMatch && neighborhoodMatch && timeMatch && activityMatch && accessibilityMatch && dietaryMatch

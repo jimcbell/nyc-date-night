@@ -16,7 +16,7 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
   // Filter ideas by selected budgets
   const budgetFilteredIdeas = selectedBudgets.length === 0
     ? filteredIdeas // Show all ideas when no budgets are selected
-    : filteredIdeas.filter(idea => selectedBudgets.includes(idea.cost))
+    : filteredIdeas.filter(idea => selectedBudgets.includes(idea.priceRange))
 
   // Split suggestions into two groups for ad placement
   const firstGroup = budgetFilteredIdeas.slice(0, 3)
@@ -59,18 +59,45 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
                   <p className="text-gray-600 mb-4">{idea.description}</p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.cost}
+                      {idea.priceRange}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.location}
+                      {idea.neighborhood}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.type}
+                      {idea.activityType}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.timeOfDay}
+                      {idea.timeOfDay.join(', ')}
                     </span>
+                    {idea.accessibility.length > 0 && (
+                      <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-sm">
+                        Accessible
+                      </span>
+                    )}
+                    {idea.dietaryOptions.length > 0 && (
+                      <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                        Dietary Options
+                      </span>
+                    )}
+                    {idea.weatherDependent && (
+                      <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-sm">
+                        Weather Dependent
+                      </span>
+                    )}
                   </div>
+                  {idea.websiteUrl && (
+                    <div className="mt-4">
+                      <a 
+                        href={idea.websiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 text-sm"
+                      >
+                        Visit Website →
+                      </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -86,18 +113,45 @@ export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps)
                   <p className="text-gray-600 mb-4">{idea.description}</p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.cost}
+                      {idea.priceRange}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.location}
+                      {idea.neighborhood}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.type}
+                      {idea.activityType}
                     </span>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                      {idea.timeOfDay}
+                      {idea.timeOfDay.join(', ')}
                     </span>
+                    {idea.accessibility.length > 0 && (
+                      <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-sm">
+                        Accessible
+                      </span>
+                    )}
+                    {idea.dietaryOptions.length > 0 && (
+                      <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                        Dietary Options
+                      </span>
+                    )}
+                    {idea.weatherDependent && (
+                      <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-sm">
+                        Weather Dependent
+                      </span>
+                    )}
                   </div>
+                  {idea.websiteUrl && (
+                    <div className="mt-4">
+                      <a 
+                        href={idea.websiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 text-sm"
+                      >
+                        Visit Website →
+                      </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
