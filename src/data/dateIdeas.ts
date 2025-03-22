@@ -108,7 +108,7 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "7",
     name: "Comedy Cellar",
-    description: "Catch performances by both established and up-and-coming comedians at this iconic venue.",
+    description: "Catch performances by both up-and-coming comedians and surprise appearances by famous comics at this iconic venue.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Entertainment",
@@ -205,25 +205,25 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://nyphil.org"
   },
   {
     id: "14",
-    name: "Cooking Class at the Institute of Culinary Education",
-    description: "Learn to prepare a gourmet meal together at this renowned culinary school.",
+    name: "The Metropolitan Museum of Art",
+    description: "Explore one of the world's largest and most comprehensive art museums.",
     neighborhood: "Manhattan",
-    priceRange: "$$$",
-    activityType: "Active",
+    priceRange: "$$",
+    activityType: "Arts & Culture",
     indoor: true,
-    accessibility: [],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["afternoon", "evening"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.ice.edu/newyork/recreational-classes"
+    websiteUrl: "https://www.metmuseum.org"
   },
   {
     id: "15",
@@ -655,7 +655,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.rockefellercenter.com/attractions/radio-city-music-hall-stage-door-tour"
@@ -670,7 +670,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.coneyisland.com"
@@ -685,7 +685,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.911memorial.org"
@@ -1135,7 +1135,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.thetippler.com"
@@ -1150,7 +1150,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.nycfiremuseum.org"
@@ -1180,7 +1180,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.nytransitmuseum.org"
@@ -1210,7 +1210,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.metmuseum.org/visit/plan-your-visit/met-cloisters"
@@ -1225,7 +1225,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: ["vegan", "vegetarian"],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.brooklyngrangefarm.com"
@@ -1240,7 +1240,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.sakagura.com"
@@ -1255,7 +1255,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://thejewishmuseum.org"
@@ -1270,7 +1270,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://spyscape.com"
@@ -1300,7 +1300,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.heliny.com"
@@ -1315,7 +1315,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.icp.org"
@@ -1330,7 +1330,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: ["vegetarian"],
-    timeOfDay: ["afternoon", "evening", "late-night"],
+    timeOfDay: ["Daytime", "Nighttime", "late-night"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.brooklynbowl.com"
@@ -1345,7 +1345,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: ["vegetarian"],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.bronxlittleitaly.com"
@@ -1360,7 +1360,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.newmuseum.org"
@@ -1375,7 +1375,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime", "late-night"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.facebook.com/MariesCrisisBar/"
@@ -1390,7 +1390,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.stepsnyc.com"
@@ -1405,7 +1405,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.mcny.org"
@@ -1420,7 +1420,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.fotografiska.com/nyc"
@@ -1435,7 +1435,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgovparks.org/parks/rockaway-beach-and-boardwalk"
@@ -1450,7 +1450,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime", "late-night"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.smokejazz.com"
@@ -1458,14 +1458,14 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "98",
     name: "Alice's Tea Cup",
-    description: "Experience a whimsical Alice in Wonderland themed afternoon tea service.",
+    description: "Experience a whimsical Alice in Wonderland themed Daytime tea service.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Dining",
     indoor: true,
     accessibility: [],
     dietaryOptions: ["vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://alicesteacup.com"
@@ -1480,7 +1480,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "evening"],
+    timeOfDay: ["morning", "Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.hudsonvalleyballooning.com"
@@ -1495,7 +1495,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgovparks.org/parks/brooklyn-heights-promenade"
@@ -1510,7 +1510,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://rubinmuseum.org"
@@ -1525,7 +1525,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime", "late-night"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.comedycellar.com"
@@ -1540,7 +1540,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgovparks.org/parks/fort-tryon-park"
@@ -1555,7 +1555,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.mlb.com/yankees"
@@ -1570,7 +1570,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.amnh.org/exhibitions/permanent/rose-center"
@@ -1585,7 +1585,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.tannens.com"
@@ -1600,7 +1600,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.circleline.com"
@@ -1615,7 +1615,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.chelseapiers.com/golf"
@@ -1630,7 +1630,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.noguchi.org"
@@ -1645,7 +1645,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: ["vegetarian"],
-    timeOfDay: ["afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.foodsofny.com/greenwich-village"
@@ -1660,7 +1660,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.beaire.com/en/aire-ancient-baths-new-york"
@@ -1675,7 +1675,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.nuyorican.org"
@@ -1690,7 +1690,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.colorfactory.co"
@@ -1705,7 +1705,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.bkwinery.com"
@@ -1720,7 +1720,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.brooklynflea.com"
@@ -1735,7 +1735,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.birdlandjazz.com"
@@ -1750,7 +1750,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.bbg.org/visit/events"
@@ -1765,7 +1765,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.fitnyc.edu/museum"
@@ -1780,7 +1780,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.cooperhewitt.org"
@@ -1795,7 +1795,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.secretnyctours.com"
@@ -1825,7 +1825,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.green-wood.com"
@@ -1840,7 +1840,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.thehighline.org"
@@ -1855,7 +1855,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.artechouse.com/location/nyc"
@@ -1870,7 +1870,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.thearmoryshow.com"
@@ -1885,7 +1885,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.secretfoodtours.com/new-york"
@@ -1900,7 +1900,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.thehighline.org/activities/stargazing"
