@@ -10,7 +10,7 @@ interface ResultsViewProps {
   filteredIdeas: DateIdea[]
 }
 
-export default function ResultsView({ preferences, onBack, filteredIdeas }: ResultsViewProps) {
+export default function ResultsView({ onBack, filteredIdeas }: ResultsViewProps) {
   const [selectedBudgets, setSelectedBudgets] = useState<string[]>([])
 
   // Filter ideas by selected budgets
