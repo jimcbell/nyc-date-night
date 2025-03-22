@@ -48,18 +48,18 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
         // Neighborhood match
         const neighborhoodMatch = formData.neighborhoods.length === 0 || 
           formData.neighborhoods.some(neighborhood => 
-            idea.location.toLowerCase().includes(neighborhood.toLowerCase())
+            idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
           )
         
         // Time of day match
-        const timeMatch = formData.timeOfDay.length === 0 || formData.timeOfDay.some(time => {
-          if (time.toLowerCase() === 'any') return true
-          if (idea.timeOfDay.toLowerCase() === 'any') return true
-          return idea.timeOfDay.toLowerCase() === time.toLowerCase()
-        })
+        const timeMatch = formData.timeOfDay.length === 0 || 
+          formData.timeOfDay.some(time => {
+            if (time.toLowerCase() === 'any') return true
+            return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase())
+          })
 
         // Activity type match
-        const activityTypeMatch = activityMap[activity]?.includes(idea.type)
+        const activityTypeMatch = activityMap[activity]?.includes(idea.activityType)
 
         return neighborhoodMatch && timeMatch && activityTypeMatch
       })

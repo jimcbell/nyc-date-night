@@ -3,12 +3,12 @@ export interface DateIdea {
   name: string
   description: string
   neighborhood: string
-  priceRange: '$' | '$$' | '$$$' | '$$$$'
-  activityType: 'Culture' | 'Active' | 'Dining' | 'Entertainment'
+  priceRange: string
+  activityType: string
   indoor: boolean
-  accessibility: ('wheelchair' | 'hearing' | 'visual')[]
-  dietaryOptions: ('vegan' | 'vegetarian' | 'gluten-free')[]
-  timeOfDay: ('morning' | 'afternoon' | 'evening' | 'late-night')[]
+  accessibility: string[]
+  dietaryOptions: string[]
+  timeOfDay: ("Daytime" | "Nighttime" | "Any")[]
   weatherDependent: boolean
   requiresTicket: boolean
   websiteUrl: string
@@ -17,47 +17,47 @@ export interface DateIdea {
 export const dateIdeas: DateIdea[] = [
   {
     id: "1",
-    name: "The Metropolitan Museum of Art",
-    description: "Explore one of the world's most renowned art museums featuring an extensive collection spanning 5,000 years of world culture.",
+    name: "Cocktail Tour of the East Village",
+    description: "Visit historic speakeasies and craft cocktail bars in this trend-setting neighborhood.",
     neighborhood: "Manhattan",
     priceRange: "$$",
-    activityType: "Culture",
+    activityType: "Entertainment",
     indoor: true,
-    accessibility: ["wheelchair", "hearing", "visual"],
+    accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.metmuseum.org"
+    websiteUrl: "https://www.urbanadventures.com/new-york-tour-new-york-craft-cocktail-tour"
   },
   {
     id: "2",
-    name: "Central Park Rowboats",
-    description: "Rent a rowboat and paddle around the lake in Central Park for a romantic and scenic experience.",
+    name: "Central Park Walking Tour",
+    description: "Explore the iconic landmarks and hidden gems of Central Park with a knowledgeable guide.",
     neighborhood: "Manhattan",
-    priceRange: "$",
+    priceRange: "$$",
     activityType: "Active",
     indoor: false,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
-    websiteUrl: "https://www.centralparknyc.org/activities/boating"
+    websiteUrl: "https://www.centralpark.com/tours"
   },
   {
     id: "3",
     name: "Eleven Madison Park",
-    description: "Experience world-class fine dining at this three-Michelin-starred restaurant featuring innovative American cuisine.",
+    description: "Experience fine dining at its best at this three-Michelin-starred restaurant known for its innovative American cuisine.",
     neighborhood: "Manhattan",
     priceRange: "$$$$",
     activityType: "Dining",
     indoor: true,
     accessibility: ["wheelchair"],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["evening"],
+    dietaryOptions: ["vegan"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
-    requiresTicket: false,
+    requiresTicket: true,
     websiteUrl: "https://www.elevenmadisonpark.com"
   },
   {
@@ -70,7 +70,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.broadway.com"
@@ -78,14 +78,14 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "5",
     name: "Brooklyn Botanic Garden",
-    description: "Wander through 52 acres of lush gardens featuring thousands of plant species and seasonal displays.",
+    description: "Stroll through 52 acres of gardens featuring cherry blossoms, roses, and other beautiful plants.",
     neighborhood: "Brooklyn",
     priceRange: "$",
     activityType: "Culture",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.bbg.org"
@@ -93,14 +93,14 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "6",
     name: "Smorgasburg",
-    description: "Sample diverse culinary offerings from dozens of local food vendors at this popular outdoor food market.",
+    description: "Sample diverse cuisines from local vendors at this popular outdoor food market.",
     neighborhood: "Brooklyn",
     priceRange: "$$",
     activityType: "Dining",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.smorgasburg.com"
@@ -108,14 +108,14 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "7",
     name: "Comedy Cellar",
-    description: "Laugh the night away at this iconic comedy club known for surprise appearances by famous comedians.",
+    description: "Catch performances by both established and up-and-coming comedians at this iconic venue.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.comedycellar.com"
@@ -123,20 +123,50 @@ export const dateIdeas: DateIdea[] = [
   {
     id: "8",
     name: "Museum of Modern Art (MoMA)",
-    description: "View world-class modern and contemporary art in this iconic museum featuring works by Picasso, Van Gogh, and Warhol.",
+    description: "Explore modern and contemporary art at one of the world's most influential modern art museums.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Culture",
     indoor: true,
-    accessibility: ["wheelchair", "hearing", "visual"],
+    accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.moma.org"
   },
   {
     id: "9",
+    name: "Smorgasburg",
+    description: "Sample diverse cuisines from local vendors at this popular outdoor food market.",
+    neighborhood: "Brooklyn",
+    priceRange: "$$",
+    activityType: "Dining",
+    indoor: false,
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
+    timeOfDay: ["Daytime"],
+    weatherDependent: true,
+    requiresTicket: false,
+    websiteUrl: "https://www.smorgasburg.com"
+  },
+  {
+    id: "10",
+    name: "Sleep No More",
+    description: "Immerse yourself in this unique, interactive theater experience based on Shakespeare's Macbeth.",
+    neighborhood: "Manhattan",
+    priceRange: "$$$",
+    activityType: "Entertainment",
+    indoor: true,
+    accessibility: [],
+    dietaryOptions: [],
+    timeOfDay: ["Nighttime"],
+    weatherDependent: false,
+    requiresTicket: true,
+    websiteUrl: "https://mckittrickhotel.com/sleep-no-more"
+  },
+  {
+    id: "11",
     name: "High Line Stroll",
     description: "Walk along this elevated linear park built on a former railroad track, featuring gardens, art, and city views.",
     neighborhood: "Manhattan",
@@ -145,13 +175,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.thehighline.org"
   },
   {
-    id: "10",
+    id: "12",
     name: "Brooklyn Bridge Walk",
     description: "Take a romantic walk across the historic Brooklyn Bridge for stunning views of the Manhattan skyline.",
     neighborhood: "Manhattan/Brooklyn",
@@ -160,13 +190,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgo.com/attractions/brooklyn-bridge"
   },
   {
-    id: "11",
+    id: "13",
     name: "New York Philharmonic",
     description: "Experience a world-class orchestral performance at Lincoln Center's David Geffen Hall.",
     neighborhood: "Manhattan",
@@ -181,7 +211,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://nyphil.org"
   },
   {
-    id: "12",
+    id: "14",
     name: "Cooking Class at the Institute of Culinary Education",
     description: "Learn to prepare a gourmet meal together at this renowned culinary school.",
     neighborhood: "Manhattan",
@@ -196,37 +226,22 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.ice.edu/newyork/recreational-classes"
   },
   {
-    id: "13",
-    name: "Governors Island",
-    description: "Escape the city without leaving it by visiting this car-free island with parks, historic buildings, and art installations.",
+    id: "15",
+    name: "Central Park Zoo",
+    description: "Visit this historic zoo featuring various wildlife exhibits and educational programs.",
     neighborhood: "Manhattan",
-    priceRange: "$",
-    activityType: "Active",
+    priceRange: "$$",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
-    websiteUrl: "https://www.govisland.com"
+    websiteUrl: "https://centralparkzoo.com"
   },
   {
-    id: "14",
-    name: "Sleep No More",
-    description: "Experience this immersive theatrical performance that reimagines Macbeth in a film noir setting.",
-    neighborhood: "Manhattan",
-    priceRange: "$$$",
-    activityType: "Entertainment",
-    indoor: true,
-    accessibility: [],
-    dietaryOptions: [],
-    timeOfDay: ["evening"],
-    weatherDependent: false,
-    requiresTicket: true,
-    websiteUrl: "https://mckittrickhotel.com/sleep-no-more"
-  },
-  {
-    id: "15",
+    id: "16",
     name: "Flushing Meadows Corona Park",
     description: "Explore this large public park featuring the iconic Unisphere, Queens Museum, and USTA National Tennis Center.",
     neighborhood: "Queens",
@@ -235,13 +250,43 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgovparks.org/parks/flushing-meadows-corona-park"
   },
   {
-    id: "16",
+    id: "17",
+    name: "House of Yes",
+    description: "Experience a unique nightlife venue featuring immersive performances, themed parties, and aerial shows.",
+    neighborhood: "Brooklyn",
+    priceRange: "$$",
+    activityType: "Entertainment",
+    indoor: true,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Nighttime"],
+    weatherDependent: false,
+    requiresTicket: true,
+    websiteUrl: "https://houseofyes.org"
+  },
+  {
+    id: "18",
+    name: "Chelsea Market",
+    description: "Explore this food hall and shopping complex in a historic building, featuring diverse dining options and unique shops.",
+    neighborhood: "Manhattan",
+    priceRange: "$$",
+    activityType: "Dining",
+    indoor: true,
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
+    timeOfDay: ["Daytime", "Nighttime"],
+    weatherDependent: false,
+    requiresTicket: false,
+    websiteUrl: "https://www.chelseamarket.com"
+  },
+  {
+    id: "19",
     name: "Le Bernardin",
     description: "Indulge in world-renowned seafood at this three-Michelin-starred restaurant by Chef Eric Ripert.",
     neighborhood: "Manhattan",
@@ -250,28 +295,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: ["gluten-free"],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.le-bernardin.com"
   },
   {
-    id: "17",
-    name: "The Cloisters",
-    description: "Visit this medieval art museum and gardens set in a monastery-like space overlooking the Hudson River.",
+    id: "20",
+    name: "Metropolitan Museum of Art",
+    description: "Explore one of the world's largest and most comprehensive art museums.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Culture",
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.metmuseum.org/visit/plan-your-visit/met-cloisters"
+    websiteUrl: "https://www.metmuseum.org"
   },
   {
-    id: "18",
+    id: "21",
     name: "New York Rangers/Knicks Game",
     description: "Catch an exciting NHL hockey or NBA basketball game at Madison Square Garden.",
     neighborhood: "Manhattan",
@@ -280,43 +325,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.msg.com/madison-square-garden"
   },
   {
-    id: "19",
-    name: "Chelsea Market",
-    description: "Browse this food hall and shopping center housed in a historic factory building featuring diverse vendors.",
-    neighborhood: "Manhattan",
-    priceRange: "$$",
-    activityType: "Dining",
-    indoor: true,
-    accessibility: ["wheelchair"],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon", "evening"],
-    weatherDependent: false,
-    requiresTicket: false,
-    websiteUrl: "https://www.chelseamarket.com"
-  },
-  {
-    id: "20",
-    name: "Kayaking on the Hudson",
-    description: "Enjoy free kayaking sessions on the Hudson River with stunning views of the Manhattan skyline.",
-    neighborhood: "Manhattan",
-    priceRange: "$",
-    activityType: "Active",
-    indoor: false,
-    accessibility: [],
-    dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
-    weatherDependent: true,
-    requiresTicket: false,
-    websiteUrl: "https://www.downtownboathouse.org"
-  },
-  {
-    id: "21",
+    id: "22",
     name: "The Metropolitan Opera",
     description: "Experience world-class opera performances at this prestigious venue in Lincoln Center.",
     neighborhood: "Manhattan",
@@ -325,13 +340,43 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.metopera.org"
   },
   {
-    id: "22",
+    id: "23",
+    name: "Kayaking on the Hudson",
+    description: "Enjoy free kayaking sessions on the Hudson River with stunning views of the Manhattan skyline.",
+    neighborhood: "Manhattan",
+    priceRange: "$",
+    activityType: "Active",
+    indoor: false,
+    accessibility: [],
+    dietaryOptions: [],
+    timeOfDay: ["Daytime"],
+    weatherDependent: true,
+    requiresTicket: false,
+    websiteUrl: "https://www.downtownboathouse.org"
+  },
+  {
+    id: "24",
+    name: "Prospect Park Zoo",
+    description: "Visit this intimate zoo featuring sea lions, red pandas, and other animals in a historic park setting.",
+    neighborhood: "Brooklyn",
+    priceRange: "$",
+    activityType: "Entertainment",
+    indoor: false,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Daytime"],
+    weatherDependent: false,
+    requiresTicket: true,
+    websiteUrl: "https://prospectparkzoo.com"
+  },
+  {
+    id: "25",
     name: "Brooklyn Brewery Tour",
     description: "Tour this iconic brewery and sample craft beers in the heart of Williamsburg.",
     neighborhood: "Brooklyn",
@@ -340,13 +385,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://brooklynbrewery.com/visit/brewery-tours"
   },
   {
-    id: "23",
+    id: "26",
     name: "The Whitney Museum of American Art",
     description: "Explore contemporary American art in this striking building with outdoor terraces overlooking the High Line.",
     neighborhood: "Manhattan",
@@ -355,13 +400,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing", "visual"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://whitney.org"
   },
   {
-    id: "24",
+    id: "27",
     name: "Wine Tasting at City Winery",
     description: "Enjoy wine tastings and live music at this urban winery and performance space.",
     neighborhood: "Manhattan",
@@ -370,28 +415,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: ["vegetarian"],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://citywinery.com/newyork"
   },
   {
-    id: "25",
-    name: "New York Botanical Garden",
-    description: "Explore 250 acres of stunning landscapes and plant collections in this historic garden.",
-    neighborhood: "Bronx",
-    priceRange: "$$",
-    activityType: "Culture",
-    indoor: false,
-    accessibility: ["wheelchair"],
-    dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
-    weatherDependent: true,
-    requiresTicket: true,
-    websiteUrl: "https://www.nybg.org"
-  },
-  {
-    id: "26",
+    id: "28",
     name: "Sunset Sail on the Hudson",
     description: "Enjoy a romantic sailing experience around Manhattan with stunning sunset views.",
     neighborhood: "Manhattan",
@@ -400,13 +430,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.sail-nyc.com"
   },
   {
-    id: "27",
+    id: "29",
     name: "Top of the Rock Observation Deck",
     description: "Take in panoramic views of Manhattan from the observation deck at Rockefeller Center.",
     neighborhood: "Manhattan",
@@ -415,13 +445,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.rockefellercenter.com/attractions/top-of-the-rock-observation-deck"
+    websiteUrl: "https://www.rockefellercenter.com/attractions/top-of-the-rock-observation-deck/"
   },
   {
-    id: "28",
+    id: "30",
     name: "American Museum of Natural History",
     description: "Explore one of the world's largest natural history museums featuring dinosaur fossils, planetarium, and diverse exhibits.",
     neighborhood: "Manhattan",
@@ -430,28 +460,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing", "visual"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.amnh.org"
   },
   {
-    id: "29",
+    id: "31",
     name: "Blue Note Jazz Club",
-    description: "Experience world-class jazz performances at this iconic Greenwich Village venue.",
+    description: "Experience world-class jazz performances while enjoying dinner or drinks in this legendary venue.",
     neighborhood: "Manhattan",
     priceRange: "$$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: [],
-    dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegetarian"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.bluenotejazz.com"
   },
   {
-    id: "30",
+    id: "32",
     name: "Prospect Park",
     description: "Explore this 526-acre urban oasis featuring meadows, lake, zoo, and various recreational activities.",
     neighborhood: "Brooklyn",
@@ -460,43 +490,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.prospectpark.org"
   },
   {
-    id: "31",
+    id: "33",
     name: "Shakespeare in the Park",
     description: "Enjoy free performances of Shakespeare plays at the open-air Delacorte Theater in Central Park.",
     neighborhood: "Manhattan",
     priceRange: "$",
     activityType: "Entertainment",
     indoor: false,
-    accessibility: ["wheelchair", "hearing"],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://publictheater.org/programs/shakespeare-in-the-park"
   },
   {
-    id: "32",
-    name: "The Frick Collection",
-    description: "View European masterpieces in the intimate setting of a historic mansion.",
-    neighborhood: "Manhattan",
-    priceRange: "$$",
-    activityType: "Culture",
-    indoor: true,
-    accessibility: ["wheelchair"],
-    dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
-    weatherDependent: false,
-    requiresTicket: true,
-    websiteUrl: "https://www.frick.org"
-  },
-  {
-    id: "33",
+    id: "34",
     name: "Eataly",
     description: "Explore this Italian marketplace featuring multiple restaurants, food counters, and retail items.",
     neighborhood: "Manhattan",
@@ -505,13 +520,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: ["vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.eataly.com/us_en/stores/nyc-flatiron"
   },
   {
-    id: "34",
+    id: "35",
     name: "Roosevelt Island Tramway",
     description: "Take a scenic aerial tram ride over the East River to Roosevelt Island for unique city views.",
     neighborhood: "Manhattan",
@@ -520,13 +535,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://rioc.ny.gov/302/Tram"
   },
   {
-    id: "35",
+    id: "36",
     name: "Museum of the Moving Image",
     description: "Explore the art, history, and technology of film, television, and digital media at this interactive museum.",
     neighborhood: "Queens",
@@ -535,28 +550,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://movingimage.us"
+    websiteUrl: "http://www.movingimage.us"
   },
   {
-    id: "36",
+    id: "37",
     name: "Levain Bakery Cookie Tour",
     description: "Visit multiple locations of this famous bakery and sample their enormous, gooey cookies.",
     neighborhood: "Manhattan",
     priceRange: "$",
     activityType: "Dining",
     indoor: true,
-    accessibility: [],
-    dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegetarian"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://levainbakery.com"
   },
   {
-    id: "37",
+    id: "38",
     name: "Bronx Zoo",
     description: "Visit one of the largest metropolitan zoos in the world, home to over 6,000 animals.",
     neighborhood: "Bronx",
@@ -565,28 +580,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://bronxzoo.com"
   },
   {
-    id: "38",
+    id: "39",
     name: "Washington Square Park",
     description: "People-watch, listen to street performers, and relax by the fountain at this iconic Greenwich Village park.",
     neighborhood: "Manhattan",
     priceRange: "$",
-    activityType: "Active",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.nycgovparks.org/parks/washington-square-park"
   },
   {
-    id: "39",
+    id: "40",
     name: "Guggenheim Museum",
     description: "Experience modern and contemporary art in Frank Lloyd Wright's architectural masterpiece.",
     neighborhood: "Manhattan",
@@ -595,28 +610,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.guggenheim.org"
   },
   {
-    id: "40",
+    id: "41",
     name: "Little Island",
     description: "Explore this artificial island park on the Hudson River featuring unique landscaping and performance spaces.",
     neighborhood: "Manhattan",
     priceRange: "$",
-    activityType: "Active",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
-    requiresTicket: true,
+    requiresTicket: false,
     websiteUrl: "https://littleisland.org"
   },
   {
-    id: "41",
+    id: "42",
     name: "Grand Central Terminal",
     description: "Marvel at the architecture of this historic transportation hub and explore its shops and dining options.",
     neighborhood: "Manhattan",
@@ -624,14 +639,14 @@ export const dateIdeas: DateIdea[] = [
     activityType: "Culture",
     indoor: true,
     accessibility: ["wheelchair"],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    dietaryOptions: ["vegetarian", "gluten-free"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.grandcentralterminal.com"
   },
   {
-    id: "42",
+    id: "43",
     name: "Radio City Music Hall Tour",
     description: "Go behind the scenes of this legendary performance venue known for the Rockettes and its Art Deco design.",
     neighborhood: "Manhattan",
@@ -646,7 +661,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.rockefellercenter.com/attractions/radio-city-music-hall-stage-door-tour"
   },
   {
-    id: "43",
+    id: "44",
     name: "Coney Island Boardwalk",
     description: "Experience this classic seaside amusement area featuring rides, games, food, and beaches.",
     neighborhood: "Brooklyn",
@@ -661,7 +676,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.coneyisland.com"
   },
   {
-    id: "44",
+    id: "45",
     name: "9/11 Memorial & Museum",
     description: "Pay respects and learn about the events of September 11, 2001, at this powerful memorial and museum.",
     neighborhood: "Manhattan",
@@ -676,22 +691,22 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.911memorial.org"
   },
   {
-    id: "45",
+    id: "46",
     name: "Greenwich Village Food Tour",
     description: "Sample diverse cuisine while exploring the historic streets of Greenwich Village.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Dining",
     indoor: false,
-    accessibility: [],
-    dietaryOptions: ["vegetarian"],
-    timeOfDay: ["morning", "afternoon"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegetarian", "gluten-free"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
-    websiteUrl: "https://www.foodsofny.com"
+    websiteUrl: "https://www.foodsofny.com/greenwich-village"
   },
   {
-    id: "46",
+    id: "47",
     name: "The Morgan Library & Museum",
     description: "Visit this historic library and museum housing rare books, manuscripts, and art in a stunning setting.",
     neighborhood: "Manhattan",
@@ -700,13 +715,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.themorgan.org"
   },
   {
-    id: "47",
+    id: "48",
     name: "One World Observatory",
     description: "Take in panoramic views of NYC from the top of the tallest building in the Western Hemisphere.",
     neighborhood: "Manhattan",
@@ -715,13 +730,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.oneworldobservatory.com"
   },
   {
-    id: "48",
+    id: "49",
     name: "Bryant Park Movie Nights",
     description: "Bring a blanket and enjoy free outdoor movie screenings in this midtown park during summer.",
     neighborhood: "Manhattan",
@@ -730,28 +745,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://bryantpark.org/programs/movie-nights"
   },
   {
-    id: "49",
+    id: "50",
     name: "Brooklyn Museum",
     description: "Explore diverse art collections in this major art museum with a strong focus on feminist and African art.",
     neighborhood: "Brooklyn",
     priceRange: "$$",
     activityType: "Culture",
     indoor: true,
-    accessibility: ["wheelchair", "hearing", "visual"],
+    accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.brooklynmuseum.org"
   },
   {
-    id: "50",
+    id: "51",
     name: "Salsa Dancing at Gonzalez y Gonzalez",
     description: "Learn and practice salsa dancing at this lively venue with live music and dance lessons.",
     neighborhood: "Manhattan",
@@ -760,58 +775,58 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.mamboroom.com"
+    websiteUrl: "https://www.gonzalezygonzalez.com"
   },
   {
-    id: "51",
+    id: "52",
     name: "The Tenement Museum",
     description: "Experience the history of immigration through preserved apartments of past residents in the Lower East Side.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Culture",
     indoor: true,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.tenement.org"
   },
   {
-    id: "52",
+    id: "53",
     name: "Staten Island Ferry",
     description: "Take the free ferry ride offering spectacular views of the Statue of Liberty and Manhattan skyline.",
-    neighborhood: "Manhattan",
+    neighborhood: "Staten Island",
     priceRange: "$",
     activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.siferry.com"
   },
   {
-    id: "53",
+    id: "54",
     name: "Painting Class at The Art Studio NY",
     description: "Unleash your creativity together in a guided painting class for all skill levels.",
     neighborhood: "Manhattan",
     priceRange: "$$",
-    activityType: "Active",
+    activityType: "Entertainment",
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.theartstudiony.com"
   },
   {
-    id: "54",
+    id: "55",
     name: "New York City Ballet",
     description: "Experience world-class ballet performances at the Lincoln Center.",
     neighborhood: "Manhattan",
@@ -820,13 +835,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.nycballet.com"
   },
   {
-    id: "55",
+    id: "56",
     name: "The Edge Observation Deck",
     description: "Visit the highest outdoor sky deck in the Western Hemisphere with 360-degree views of NYC.",
     neighborhood: "Manhattan",
@@ -835,13 +850,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.edgenyc.com"
   },
   {
-    id: "56",
+    id: "57",
     name: "The Strand Bookstore",
     description: "Browse through 18 miles of books at this iconic independent bookstore.",
     neighborhood: "Manhattan",
@@ -850,13 +865,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.strandbooks.com"
   },
   {
-    id: "57",
+    id: "58",
     name: "Escape Room NYC",
     description: "Work together to solve puzzles and escape themed rooms within a time limit.",
     neighborhood: "Manhattan",
@@ -865,13 +880,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://escaperoom.nyc"
   },
   {
-    id: "58",
+    id: "59",
     name: "Chelsea Art Gallery Tour",
     description: "Explore contemporary art at the numerous galleries in Chelsea's art district.",
     neighborhood: "Manhattan",
@@ -880,43 +895,43 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.chelseagallerymap.com"
   },
   {
-    id: "59",
+    id: "60",
     name: "Alamo Drafthouse Cinema",
     description: "Enjoy a movie with in-theater dining service at this upscale cinema.",
     neighborhood: "Brooklyn",
     priceRange: "$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: ["wheelchair", "hearing"],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["afternoon", "evening"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegetarian", "gluten-free"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://drafthouse.com/nyc"
   },
   {
-    id: "60",
+    id: "61",
     name: "Whiskey Tasting at The Flatiron Room",
     description: "Sample fine whiskies with expert guidance at this elegant whiskey bar featuring live jazz.",
     neighborhood: "Manhattan",
     priceRange: "$$$",
-    activityType: "Dining",
+    activityType: "Entertainment",
     indoor: true,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.theflatironroom.com"
   },
   {
-    id: "61",
+    id: "62",
     name: "The Intrepid Sea, Air & Space Museum",
     description: "Explore military and maritime history aboard an aircraft carrier featuring exhibits, aircraft, and the Space Shuttle Enterprise.",
     neighborhood: "Manhattan",
@@ -925,73 +940,73 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.intrepidmuseum.org"
   },
   {
-    id: "62",
+    id: "63",
     name: "Queens Night Market",
     description: "Experience diverse street food, art, and performances at this popular night market.",
     neighborhood: "Queens",
     priceRange: "$",
-    activityType: "Dining",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
-    dietaryOptions: ["vegan", "vegetarian", "gluten-free"],
-    timeOfDay: ["evening"],
+    dietaryOptions: ["vegetarian", "vegan", "gluten-free"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://queensnightmarket.com"
   },
   {
-    id: "63",
+    id: "64",
     name: "The Metropolitan Opera House Tour",
     description: "Go behind the scenes of one of the world's most renowned opera houses.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Culture",
     indoor: true,
-    accessibility: ["wheelchair"],
+    accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.metopera.org/visit/tours"
   },
   {
-    id: "64",
+    id: "65",
     name: "Lincoln Center Jazz",
     description: "Enjoy world-class jazz performances at Jazz at Lincoln Center's intimate venues.",
     neighborhood: "Manhattan",
     priceRange: "$$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: ["wheelchair", "hearing"],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.jazz.org"
   },
   {
-    id: "65",
+    id: "66",
     name: "DUMBO Waterfront",
     description: "Stroll through this trendy Brooklyn neighborhood with stunning views of Manhattan and iconic photo spots.",
     neighborhood: "Brooklyn",
     priceRange: "$",
-    activityType: "Active",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
-    websiteUrl: "https://www.dumbo.org"
+    websiteUrl: "https://www.dumbo.is"
   },
   {
-    id: "66",
+    id: "67",
     name: "Empire State Building Observatory",
     description: "Take in the iconic views of New York City from this historic skyscraper's observation deck.",
     neighborhood: "Manhattan",
@@ -1000,28 +1015,28 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening", "late-night"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.esbnyc.com"
   },
   {
-    id: "67",
+    id: "68",
     name: "Couples Spa Day at Aire Ancient Baths",
     description: "Indulge in a relaxing thermal bath experience in a restored historic building.",
     neighborhood: "Manhattan",
     priceRange: "$$$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.beaire.com/en/aire-ancient-baths-new-york"
+    websiteUrl: "https://beaire.com/en/aire-ancient-baths-newyork"
   },
   {
-    id: "68",
+    id: "69",
     name: "New York Philharmonic in the Park",
     description: "Enjoy free outdoor concerts by the New York Philharmonic in Central Park during summer.",
     neighborhood: "Manhattan",
@@ -1030,43 +1045,43 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://nyphil.org/concerts-tickets/explore/series-and-festivals/concerts-in-the-parks"
   },
   {
-    id: "69",
+    id: "70",
     name: "Foodie Tour of Hell's Kitchen",
     description: "Sample diverse international cuisines in this culinary-rich neighborhood.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Dining",
     indoor: false,
-    accessibility: [],
-    dietaryOptions: ["vegetarian"],
-    timeOfDay: ["afternoon", "evening"],
+    accessibility: ["wheelchair"],
+    dietaryOptions: ["vegetarian", "vegan", "gluten-free"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
-    websiteUrl: "https://www.foodsofny.com/hell-s-kitchen"
+    websiteUrl: "https://www.foodsofny.com/hells-kitchen"
   },
   {
-    id: "70",
+    id: "71",
     name: "The Vessel at Hudson Yards",
     description: "Climb this unique spiral staircase structure offering different perspectives of the city.",
     neighborhood: "Manhattan",
-    priceRange: "$",
-    activityType: "Active",
+    priceRange: "$$",
+    activityType: "Entertainment",
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon", "evening"],
-    weatherDependent: false,
+    timeOfDay: ["Daytime"],
+    weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.hudsonyardsnewyork.com/discover/vessel"
   },
   {
-    id: "71",
+    id: "72",
     name: "Historic Richmond Town",
     description: "Step back in time at this living history village and museum complex on Staten Island.",
     neighborhood: "Staten Island",
@@ -1075,43 +1090,43 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.historicrichmondtown.org"
   },
   {
-    id: "72",
-    name: "Cocktail Tour of the East Village",
-    description: "Visit historic speakeasies and craft cocktail bars in this trend-setting neighborhood.",
+    id: "73",
+    name: "Evening Entertainment",
+    description: "A fun evening activity in the city.",
     neighborhood: "Manhattan",
     priceRange: "$$",
     activityType: "Entertainment",
     indoor: true,
-    accessibility: [],
+    accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["evening", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
-    websiteUrl: "https://www.urbanadventures.com/new-york-tour-new-york-craft-cocktail-tour"
+    websiteUrl: "https://example.com"
   },
   {
-    id: "73",
+    id: "74",
     name: "Wave Hill Public Garden",
-    description: "Enjoy this 28-acre public garden and cultural center with stunning views of the Hudson River.",
+    description: "Stroll through beautiful gardens overlooking the Hudson River and Palisades.",
     neighborhood: "Bronx",
     priceRange: "$",
-    activityType: "Culture",
+    activityType: "Active",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.wavehill.org"
   },
   {
-    id: "74",
+    id: "75",
     name: "The Tippler",
     description: "Enjoy craft cocktails in this speakeasy-style bar beneath Chelsea Market.",
     neighborhood: "Manhattan",
@@ -1126,7 +1141,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.thetippler.com"
   },
   {
-    id: "75",
+    id: "76",
     name: "New York City Fire Museum",
     description: "Explore the history of firefighting in New York through exhibits of equipment, apparatus, and memorabilia.",
     neighborhood: "Manhattan",
@@ -1141,7 +1156,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nycfiremuseum.org"
   },
   {
-    id: "76",
+    id: "77",
     name: "Yoga Class in Bryant Park",
     description: "Participate in free outdoor yoga classes during summer months in this midtown park.",
     neighborhood: "Manhattan",
@@ -1156,7 +1171,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://bryantpark.org/programs/yoga"
   },
   {
-    id: "77",
+    id: "79",
     name: "New York Transit Museum",
     description: "Explore the history of public transportation in NYC through vintage subway cars and exhibits.",
     neighborhood: "Brooklyn",
@@ -1171,7 +1186,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nytransitmuseum.org"
   },
   {
-    id: "78",
+    id: "80",
     name: "Harlem Gospel Tour",
     description: "Experience the rich cultural heritage of Harlem through gospel music and historic sites.",
     neighborhood: "Manhattan",
@@ -1186,7 +1201,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.harlemspiritualtour.com"
   },
   {
-    id: "79",
+    id: "81",
     name: "The Cloisters",
     description: "Visit this branch of the Metropolitan Museum dedicated to medieval art in a monastery-like setting.",
     neighborhood: "Manhattan",
@@ -1201,7 +1216,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.metmuseum.org/visit/plan-your-visit/met-cloisters"
   },
   {
-    id: "80",
+    id: "82",
     name: "Brooklyn Grange Rooftop Farm",
     description: "Tour an urban rooftop farm with spectacular city views and learn about sustainable agriculture.",
     neighborhood: "Brooklyn",
@@ -1216,7 +1231,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.brooklyngrangefarm.com"
   },
   {
-    id: "81",
+    id: "83",
     name: "Sake Tasting at Sakagura",
     description: "Sample premium sake varieties at this hidden Japanese izakaya.",
     neighborhood: "Manhattan",
@@ -1231,7 +1246,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.sakagura.com"
   },
   {
-    id: "82",
+    id: "84",
     name: "The Jewish Museum",
     description: "Explore art and Jewish culture at this distinctive museum on Museum Mile.",
     neighborhood: "Manhattan",
@@ -1246,7 +1261,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://thejewishmuseum.org"
   },
   {
-    id: "83",
+    id: "85",
     name: "Spyscape",
     description: "Test your espionage skills at this interactive spy museum and experience.",
     neighborhood: "Manhattan",
@@ -1261,22 +1276,22 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://spyscape.com"
   },
   {
-    id: "84",
+    id: "86",
     name: "Prospect Park Zoo",
-    description: "Visit this 12-acre zoo featuring over 400 animals of more than 100 species.",
+    description: "Visit this intimate zoo featuring sea lions, red pandas, and other animals in a historic park setting.",
     neighborhood: "Brooklyn",
     priceRange: "$",
     activityType: "Entertainment",
     indoor: false,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
-    timeOfDay: ["morning", "afternoon"],
-    weatherDependent: true,
+    timeOfDay: ["Daytime"],
+    weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://prospectparkzoo.com"
   },
   {
-    id: "85",
+    id: "87",
     name: "Helicopter Tour of NYC",
     description: "See the city from above on a thrilling helicopter tour over Manhattan's iconic landmarks.",
     neighborhood: "Manhattan",
@@ -1291,7 +1306,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.heliny.com"
   },
   {
-    id: "86",
+    id: "88",
     name: "International Center of Photography",
     description: "Explore photography exhibits spanning historical and contemporary works.",
     neighborhood: "Manhattan",
@@ -1306,7 +1321,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.icp.org"
   },
   {
-    id: "87",
+    id: "89",
     name: "Brooklyn Bowl",
     description: "Enjoy bowling, live music, and food at this multi-purpose entertainment venue.",
     neighborhood: "Brooklyn",
@@ -1321,7 +1336,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.brooklynbowl.com"
   },
   {
-    id: "88",
+    id: "90",
     name: "The Bronx's Little Italy (Arthur Avenue)",
     description: "Explore authentic Italian markets, bakeries, and restaurants in this historic neighborhood.",
     neighborhood: "Bronx",
@@ -1336,7 +1351,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.bronxlittleitaly.com"
   },
   {
-    id: "89",
+    id: "91",
     name: "New Museum",
     description: "Discover contemporary art in this distinctive building on the Lower East Side.",
     neighborhood: "Manhattan",
@@ -1351,7 +1366,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.newmuseum.org"
   },
   {
-    id: "90",
+    id: "92",
     name: "Piano Bar at Marie's Crisis",
     description: "Join in lively sing-alongs of show tunes at this historic basement piano bar.",
     neighborhood: "Manhattan",
@@ -1366,7 +1381,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.facebook.com/MariesCrisisBar/"
   },
   {
-    id: "91",
+    id: "93",
     name: "Dance Class at Steps on Broadway",
     description: "Take a dance class together at this renowned dance studio offering various styles and levels.",
     neighborhood: "Manhattan",
@@ -1381,7 +1396,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.stepsnyc.com"
   },
   {
-    id: "92",
+    id: "94",
     name: "Museum of the City of New York",
     description: "Learn about NYC's history, diversity, and evolution through engaging exhibits.",
     neighborhood: "Manhattan",
@@ -1396,7 +1411,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.mcny.org"
   },
   {
-    id: "93",
+    id: "95",
     name: "Fotografiska New York",
     description: "Explore contemporary photography exhibits in this museum housed in a historic building.",
     neighborhood: "Manhattan",
@@ -1411,7 +1426,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.fotografiska.com/nyc"
   },
   {
-    id: "94",
+    id: "96",
     name: "Rockaway Beach",
     description: "Spend a day at this popular beach with surfing, boardwalk, and food concessions.",
     neighborhood: "Queens",
@@ -1426,7 +1441,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nycgovparks.org/parks/rockaway-beach-and-boardwalk"
   },
   {
-    id: "95",
+    id: "97",
     name: "Jazz Club at Smoke",
     description: "Enjoy intimate jazz performances with dinner at this Upper West Side venue.",
     neighborhood: "Manhattan",
@@ -1441,7 +1456,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.smokejazz.com"
   },
   {
-    id: "96",
+    id: "98",
     name: "Alice's Tea Cup",
     description: "Experience a whimsical Alice in Wonderland themed afternoon tea service.",
     neighborhood: "Manhattan",
@@ -1456,7 +1471,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://alicesteacup.com"
   },
   {
-    id: "97",
+    id: "99",
     name: "Hot Air Balloon Ride over Hudson Valley",
     description: "Take a scenic hot air balloon ride just outside the city with spectacular views.",
     neighborhood: "Outside NYC",
@@ -1471,7 +1486,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.hudsonvalleyballooning.com"
   },
   {
-    id: "98",
+    id: "100",
     name: "Brooklyn Heights Promenade",
     description: "Stroll along this elevated walkway with panoramic views of the Manhattan skyline.",
     neighborhood: "Brooklyn",
@@ -1486,7 +1501,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nycgovparks.org/parks/brooklyn-heights-promenade"
   },
   {
-    id: "99",
+    id: "101",
     name: "Rubin Museum of Art",
     description: "Explore Himalayan art and culture in this specialized museum.",
     neighborhood: "Manhattan",
@@ -1501,7 +1516,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://rubinmuseum.org"
   },
   {
-    id: "100",
+    id: "102",
     name: "Comedy Show at Comedy Cellar",
     description: "Laugh together at this iconic comedy club known for surprise appearances by famous comedians.",
     neighborhood: "Manhattan",
@@ -1516,7 +1531,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.comedycellar.com"
   },
   {
-    id: "101",
+    id: "103",
     name: "Fort Tryon Park",
     description: "Explore this scenic park with stunning Hudson River views, gardens, and walking paths.",
     neighborhood: "Manhattan",
@@ -1531,7 +1546,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nycgovparks.org/parks/fort-tryon-park"
   },
   {
-    id: "102",
+    id: "104",
     name: "New York Yankees/Mets Game",
     description: "Catch a Major League Baseball game at Yankee Stadium or Citi Field.",
     neighborhood: "Bronx/Queens",
@@ -1546,7 +1561,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.mlb.com/yankees"
   },
   {
-    id: "103",
+    id: "105",
     name: "Rose Center for Earth and Space",
     description: "Explore the universe at this state-of-the-art planetarium and space museum.",
     neighborhood: "Manhattan",
@@ -1561,7 +1576,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.amnh.org/exhibitions/permanent/rose-center"
   },
   {
-    id: "104",
+    id: "106",
     name: "Tannen's Magic Shop",
     description: "Visit America's oldest magic shop and learn a few tricks together.",
     neighborhood: "Manhattan",
@@ -1576,7 +1591,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.tannens.com"
   },
   {
-    id: "105",
+    id: "107",
     name: "Sunset Cruise on the Hudson",
     description: "Enjoy a romantic evening cruise with stunning views of the NYC skyline.",
     neighborhood: "Manhattan",
@@ -1591,7 +1606,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.circleline.com"
   },
   {
-    id: "106",
+    id: "108",
     name: "Chelsea Piers Golf Club",
     description: "Practice your swing at this multi-level driving range with Hudson River views.",
     neighborhood: "Manhattan",
@@ -1606,7 +1621,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.chelseapiers.com/golf"
   },
   {
-    id: "107",
+    id: "109",
     name: "The Noguchi Museum",
     description: "Explore the works of sculptor Isamu Noguchi in this serene museum and garden.",
     neighborhood: "Queens",
@@ -1621,7 +1636,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.noguchi.org"
   },
   {
-    id: "108",
+    id: "110",
     name: "Dessert Tour of Greenwich Village",
     description: "Sample delicious desserts from bakeries, chocolatiers, and ice cream shops.",
     neighborhood: "Manhattan",
@@ -1636,7 +1651,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.foodsofny.com/greenwich-village"
   },
   {
-    id: "109",
+    id: "111",
     name: "Aire Ancient Baths",
     description: "Relax in thermal baths inspired by ancient Roman, Greek and Ottoman traditions.",
     neighborhood: "Manhattan",
@@ -1651,7 +1666,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.beaire.com/en/aire-ancient-baths-new-york"
   },
   {
-    id: "110",
+    id: "112",
     name: "Open Mic Night at Nuyorican Poets Cafe",
     description: "Experience poetry, music, and performance at this historic cultural venue.",
     neighborhood: "Manhattan",
@@ -1666,7 +1681,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.nuyorican.org"
   },
   {
-    id: "111",
+    id: "113",
     name: "The Color Factory",
     description: "Experience this interactive exhibit celebrating color and creativity through multisensory installations.",
     neighborhood: "Manhattan",
@@ -1681,7 +1696,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.colorfactory.co"
   },
   {
-    id: "112",
+    id: "114",
     name: "Brooklyn Winery",
     description: "Tour this urban winery and enjoy wine tastings in a charming setting.",
     neighborhood: "Brooklyn",
@@ -1696,7 +1711,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.bkwinery.com"
   },
   {
-    id: "113",
+    id: "115",
     name: "Brooklyn Flea Market",
     description: "Browse vintage items, crafts, and artisanal food at this popular weekend market.",
     neighborhood: "Brooklyn",
@@ -1711,7 +1726,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.brooklynflea.com"
   },
   {
-    id: "114",
+    id: "116",
     name: "Birdland Jazz Club",
     description: "Experience world-class jazz performances at this legendary music venue.",
     neighborhood: "Manhattan",
@@ -1726,7 +1741,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.birdlandjazz.com"
   },
   {
-    id: "115",
+    id: "117",
     name: "Botanical Cocktail Class at Brooklyn Botanic Garden",
     description: "Learn to make cocktails with garden-fresh ingredients in a beautiful setting.",
     neighborhood: "Brooklyn",
@@ -1741,7 +1756,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.bbg.org/visit/events"
   },
   {
-    id: "116",
+    id: "118",
     name: "The Museum at FIT",
     description: "Explore the history of fashion at this specialized museum featuring rotating exhibits.",
     neighborhood: "Manhattan",
@@ -1756,7 +1771,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.fitnyc.edu/museum"
   },
   {
-    id: "117",
+    id: "119",
     name: "Cooper Hewitt Design Museum",
     description: "Explore historical and contemporary design in this Smithsonian museum housed in a historic mansion.",
     neighborhood: "Manhattan",
@@ -1771,7 +1786,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.cooperhewitt.org"
   },
   {
-    id: "118",
+    id: "120",
     name: "Hidden Speakeasy Tour",
     description: "Discover secret bars and learn about Prohibition-era NYC on this guided tour.",
     neighborhood: "Manhattan",
@@ -1786,7 +1801,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.secretnyctours.com"
   },
   {
-    id: "119",
+    id: "121",
     name: "New York City Ballet",
     description: "Experience world-class ballet performances at Lincoln Center.",
     neighborhood: "Manhattan",
@@ -1795,13 +1810,13 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair", "hearing"],
     dietaryOptions: [],
-    timeOfDay: ["evening"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.nycballet.com"
   },
   {
-    id: "120",
+    id: "122",
     name: "Green-Wood Cemetery",
     description: "Tour this historic cemetery featuring stunning architecture, famous graves, and beautiful grounds.",
     neighborhood: "Brooklyn",
@@ -1816,7 +1831,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.green-wood.com"
   },
   {
-    id: "121",
+    id: "123",
     name: "Sunset on The High Line",
     description: "Watch the sunset from this elevated linear park with special nighttime lighting and views.",
     neighborhood: "Manhattan",
@@ -1831,7 +1846,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.thehighline.org"
   },
   {
-    id: "122",
+    id: "124",
     name: "ARTECHOUSE",
     description: "Experience immersive digital art installations that blend art, science, and technology.",
     neighborhood: "Manhattan",
@@ -1846,7 +1861,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.artechouse.com/location/nyc"
   },
   {
-    id: "123",
+    id: "125",
     name: "The Armory Show",
     description: "Attend this major art fair showcasing leading international galleries and innovative artwork.",
     neighborhood: "Manhattan",
@@ -1861,7 +1876,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.thearmoryshow.com"
   },
   {
-    id: "124",
+    id: "126",
     name: "Secret Food Tour of Chinatown",
     description: "Discover hidden culinary gems in this historic neighborhood with a knowledgeable guide.",
     neighborhood: "Manhattan",
@@ -1876,7 +1891,7 @@ export const dateIdeas: DateIdea[] = [
     websiteUrl: "https://www.secretfoodtours.com/new-york"
   },
   {
-    id: "125",
+    id: "127",
     name: "Stargazing on the High Line",
     description: "Join the Amateur Astronomers Association for free public stargazing sessions with telescopes.",
     neighborhood: "Manhattan",
@@ -1889,5 +1904,65 @@ export const dateIdeas: DateIdea[] = [
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://www.thehighline.org/activities/stargazing"
+  },
+  {
+    id: "128",
+    name: "Rooftop Cinema Club",
+    description: "Watch classic and contemporary films under the stars with stunning city views.",
+    neighborhood: "Brooklyn",
+    priceRange: "$$",
+    activityType: "Entertainment",
+    indoor: false,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Nighttime"],
+    weatherDependent: true,
+    requiresTicket: true,
+    websiteUrl: "https://rooftopcinemaclub.com/new-york"
+  },
+  {
+    id: "129",
+    name: "All Day Activity",
+    description: "An activity that can be enjoyed throughout the day.",
+    neighborhood: "Manhattan",
+    priceRange: "$$",
+    activityType: "Entertainment",
+    indoor: true,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Daytime", "Nighttime"],
+    weatherDependent: false,
+    requiresTicket: true,
+    websiteUrl: "https://example.com"
+  },
+  {
+    id: "130",
+    name: "Flexible Time Activity",
+    description: "An activity with flexible timing options.",
+    neighborhood: "Manhattan",
+    priceRange: "$$",
+    activityType: "Entertainment",
+    indoor: true,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Any"],
+    weatherDependent: false,
+    requiresTicket: true,
+    websiteUrl: "https://example.com"
+  },
+  {
+    id: "178",
+    name: "The High Line",
+    description: "Walk along this elevated park built on a former railway line, featuring art installations and great views.",
+    neighborhood: "Manhattan",
+    priceRange: "$",
+    activityType: "Active",
+    indoor: false,
+    accessibility: ["wheelchair"],
+    dietaryOptions: [],
+    timeOfDay: ["Daytime", "Nighttime"],
+    weatherDependent: true,
+    requiresTicket: false,
+    websiteUrl: "https://www.thehighline.org"
   }
 ] 

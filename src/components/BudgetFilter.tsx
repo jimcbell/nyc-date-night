@@ -1,3 +1,5 @@
+import { getPriceRangeLabel } from '../utils/priceUtils'
+
 interface BudgetFilterProps {
   selectedBudgets: string[]
   onChange: (budgets: string[]) => void
@@ -15,9 +17,9 @@ export default function BudgetFilter({ selectedBudgets, onChange }: BudgetFilter
   return (
     <div className="bg-white shadow-sm border-b sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 flex-wrap">
           <span className="text-sm font-medium text-gray-700">Filter by budget:</span>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {['Free', '$', '$$', '$$$', '$$$$'].map((option) => (
               <label
                 key={option}
@@ -33,7 +35,7 @@ export default function BudgetFilter({ selectedBudgets, onChange }: BudgetFilter
                   checked={selectedBudgets.includes(option)}
                   onChange={(e) => handleBudgetChange(option, e.target.checked)}
                 />
-                {option}
+                {getPriceRangeLabel(option)}
               </label>
             ))}
           </div>
