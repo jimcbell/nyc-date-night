@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
-import { dateIdeas } from '../data/dateIdeas'
-import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon, UserIcon, MagnifyingGlassIcon, TvIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, UserIcon, MagnifyingGlassIcon, TvIcon } from '@heroicons/react/24/outline'
 import '../styles/custom.css'
 
 interface FormErrors {
@@ -24,7 +23,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     dietaryRestrictions: initialPreferences?.dietaryRestrictions || []
   })
   const [errors, setErrors] = useState<FormErrors>({})
-  const [availableActivities, setAvailableActivities] = useState<string[]>(['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'])
 
   // Update form data when initialPreferences changes
   useEffect(() => {
@@ -32,41 +30,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
       setFormData(initialPreferences)
     }
   }, [initialPreferences])
-
-  const checkAvailableActivities = () => {
-    const available = ['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].filter(activity => {
-      // Map form activities to idea types
-      const activityMap: { [key: string]: string[] } = {
-        'Food & Drink': ['Dining'],
-        'Arts & Culture': ['Culture'],
-        'Outdoor & Sports': ['Active'],
-        'Entertainment': ['Entertainment']
-      }
-
-      return dateIdeas.some(idea => {
-        const neighborhoodMatch = formData.neighborhoods.length === 0 || 
-          formData.neighborhoods.some(neighborhood => 
-            idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
-          )
-        
-        const timeMatch = formData.timeOfDay.length === 0 || 
-          formData.timeOfDay.some(time => {
-            if (time.toLowerCase() === 'any') return true
-            return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase())
-          })
-
-        const activityTypeMatch = activityMap[activity]?.includes(idea.activityType)
-
-        return neighborhoodMatch && timeMatch && activityTypeMatch
-      })
-    })
-
-    setAvailableActivities(available)
-  }
-
-  useEffect(() => {
-    checkAvailableActivities()
-  }, [formData.neighborhoods, formData.timeOfDay])
 
   const handleChange = (field: keyof DatePreferences, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -204,9 +167,9 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
           </div>
 
           {/* Activities Section */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <TvIcon className="w-5 h-5" />
+          <div className="mb-8">
+            <div className="flex items-center space-x-2 mb-4">
+              <TvIcon className="w-5 h-5 text-teal-500" />
               <h2 className="text-lg font-medium">Activities</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -255,27 +218,25 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
           {errors.activities && <p className="mt-2 text-sm text-red-600">{errors.activities}</p>}
 
           {/* Accessibility Section */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <UserIcon className="w-5 h-5" />
-              <h2 className="text-lg font-medium">Accessibility</h2>
-            </div>
-            <div>
-              <label className={`option-button ${
-                formData.accessibility
-                  ? 'option-button--selected'
-                  : 'option-button--unselected'
-              }`}>
-                <input
-                  type="checkbox"
-                  checked={formData.accessibility}
-                  onChange={(e) => handleChange('accessibility', e.target.checked)}
-                  className="sr-only"
-                />
-                <UserIcon className="option-icon" />
-                <span>Wheelchair Accessible</span>
-              </label>
-            </div>
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+              <UserIcon className="w-5 h-5 mr-2 text-teal-500" />
+              Accessibility
+            </h3>
+            <label className={`option-button ${
+              formData.accessibility
+                ? 'option-button--selected'
+                : 'option-button--unselected'
+            }`}>
+              <input
+                type="checkbox"
+                checked={formData.accessibility}
+                onChange={(e) => handleChange('accessibility', e.target.checked)}
+                className="sr-only"
+              />
+              <UserIcon className="option-icon" />
+              <span>Wheelchair Accessible</span>
+            </label>
           </div>
 
           {/* Submit Button */}
