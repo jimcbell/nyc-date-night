@@ -3,7 +3,6 @@ import { DatePreferences } from '../App'
 import { dateIdeas } from '../data/dateIdeas'
 
 interface FormErrors {
-  budget?: string
   neighborhoods?: string
   timeOfDay?: string
   activities?: string
@@ -17,7 +16,7 @@ interface DateFinderFormProps {
 
 export default function DateFinderForm({ onSubmit, initialPreferences }: DateFinderFormProps) {
   const [formData, setFormData] = useState<DatePreferences>({
-    budget: initialPreferences?.budget || [],
+    budget: [],
     neighborhoods: initialPreferences?.neighborhoods || [],
     timeOfDay: initialPreferences?.timeOfDay || [],
     activities: initialPreferences?.activities || [],
@@ -46,9 +45,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
 
       // Check if any ideas match the current filters for this activity type
       return dateIdeas.some(idea => {
-        // Budget match
-        const budgetMatch = formData.budget.length === 0 || formData.budget.includes(idea.cost)
-        
         // Neighborhood match
         const neighborhoodMatch = formData.neighborhoods.length === 0 || 
           formData.neighborhoods.some(neighborhood => 
@@ -65,7 +61,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
         // Activity type match
         const activityTypeMatch = activityMap[activity]?.includes(idea.type)
 
-        return budgetMatch && neighborhoodMatch && timeMatch && activityTypeMatch
+        return neighborhoodMatch && timeMatch && activityTypeMatch
       })
     })
 
@@ -74,7 +70,7 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
 
   useEffect(() => {
     checkAvailableActivities()
-  }, [formData.budget, formData.neighborhoods, formData.timeOfDay])
+  }, [formData.neighborhoods, formData.timeOfDay])
 
   const handleChange = (field: keyof DatePreferences, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -116,21 +112,8 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     }))
   }
 
-  const handleBudgetChange = (budget: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      budget: checked
-        ? [...prev.budget, budget]
-        : prev.budget.filter(b => b !== budget)
-    }))
-  }
-
   const validateForm = () => {
     const newErrors: FormErrors = {}
-    
-    if (formData.budget.length === 0) {
-      newErrors.budget = 'Please select at least one budget option'
-    }
     
     if (formData.neighborhoods.length === 0) {
       newErrors.neighborhoods = 'Please select at least one neighborhood'
@@ -144,8 +127,10 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
       newErrors.activities = 'Please select at least one activity type'
     }
     
-    if (formData.dietaryRestrictions.length > 0 && formData.activities.includes('Food & Drink')) {
-      newErrors.dietaryRestrictions = 'Please select at least one dietary option'
+    // Only validate dietary restrictions if Food & Drink is selected and there are dietary restrictions
+    if (formData.activities.includes('Food & Drink') && formData.dietaryRestrictions.length === 0) {
+      // Remove this validation as it's optional
+      // newErrors.dietaryRestrictions = 'Please select at least one dietary option'
     }
 
     setErrors(newErrors)
@@ -161,29 +146,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Budget Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Budget</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {['$', '$$', '$$$', '$$$$'].map((option) => (
-            <label key={option} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.budget.includes(option)
-                ? 'bg-primary-50 border-primary-500 text-primary-700'
-                : 'hover:bg-gray-50'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.budget.includes(option)}
-                onChange={(e) => handleBudgetChange(option, e.target.checked)}
-                className="sr-only"
-              />
-              <span className="text-lg font-medium">{option}</span>
-            </label>
-          ))}
-        </div>
-        {errors.budget && <p className="mt-1 text-sm text-red-600">{errors.budget}</p>}
-      </div>
-
       {/* Neighborhoods Section */}
       <div>
         <h3 className="text-lg font-medium text-gray-900 mb-4">Neighborhoods</h3>

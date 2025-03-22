@@ -16,15 +16,10 @@ export interface DatePreferences {
 function App() {
   const [showResults, setShowResults] = useState(false)
   const [preferences, setPreferences] = useState<DatePreferences | null>(null)
-  const [key, setKey] = useState(0)
 
   const handleSubmit = (data: DatePreferences) => {
     setPreferences(data)
     setShowResults(true)
-  }
-
-  const handleRegenerate = () => {
-    setKey(prev => prev + 1)
   }
 
   const handleBackToForm = () => {
@@ -33,12 +28,8 @@ function App() {
 
   const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
     return dateIdeas.filter(idea => {
-      // Budget filter - only show activities within selected budget ranges
-      const budgetLevels = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 }
-      const ideaBudgetLevel = budgetLevels[idea.cost as keyof typeof budgetLevels]
-      const budgetMatch = preferences.budget.some(budget => 
-        ideaBudgetLevel === budgetLevels[budget as keyof typeof budgetLevels]
-      )
+      // Budget filter - only apply if budgets are selected
+      const budgetMatch = preferences.budget.length === 0 || preferences.budget.includes(idea.cost)
 
       // Neighborhood filter - match if idea's location contains any selected neighborhood
       const neighborhoodMatch = preferences.neighborhoods.some(neighborhood => 
@@ -138,10 +129,8 @@ function App() {
           <div className="flex gap-8">
             <div className="flex-1">
               <ResultsView 
-                key={key}
                 preferences={preferences!} 
                 onBack={handleBackToForm}
-                onRegenerate={handleRegenerate}
                 filteredIdeas={filteredIdeas}
               />
             </div>

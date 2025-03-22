@@ -2,13 +2,13 @@ export interface DateIdea {
   id: number
   name: string
   description: string
-  cost: string
+  cost: 'Free' | '$' | '$$' | '$$$' | '$$$$'
   location: string
   type: string
   indoor: boolean
   accessibility: boolean
   dietaryOptions: string[]
-  timeOfDay: 'Daytime' | 'Nighttime' | 'Any' 
+  timeOfDay: 'Daytime' | 'Nighttime' | 'Any'
   weatherDependent: boolean
 }
 
@@ -30,7 +30,7 @@ export const dateIdeas: DateIdea[] = [
     id: 2,
     name: "Walk the High Line",
     description: "Stroll along this elevated linear park built on a former freight rail line, offering unique views of the city and the Hudson River.",
-    cost: "$",
+    cost: "Free",
     location: "Manhattan - Chelsea",
     type: "Active",
     indoor: false,
@@ -173,7 +173,7 @@ export const dateIdeas: DateIdea[] = [
     id: 13,
     name: "Picnic in Prospect Park",
     description: "Pack a basket and enjoy a romantic picnic in Brooklyn's verdant Prospect Park.",
-    cost: "$",
+    cost: "Free",
     location: "Brooklyn - Park Slope",
     type: "Active",
     indoor: false,
@@ -290,7 +290,7 @@ export const dateIdeas: DateIdea[] = [
     id: 22,
     name: "Gantry Plaza State Park",
     description: "Stroll along this waterfront park with spectacular views of Midtown Manhattan.",
-    cost: "$",
+    cost: "Free",
     location: "Queens - Long Island City",
     type: "Active",
     indoor: false,
@@ -329,7 +329,7 @@ export const dateIdeas: DateIdea[] = [
     id: 25,
     name: "Kayaking on the Hudson River",
     description: "Take advantage of free kayaking sessions offered at various locations along the Hudson.",
-    cost: "$",
+    cost: "Free",
     location: "Manhattan - Various",
     type: "Active",
     indoor: false,
@@ -1447,7 +1447,7 @@ export const dateIdeas: DateIdea[] = [
     id: 120,
     name: "Socrates Sculpture Park",
     description: "Explore outdoor art installations in this waterfront Queens park.",
-    cost: "$",
+    cost: "Free",
     location: "Queens - Astoria",
     type: "Culture",
     indoor: false,
