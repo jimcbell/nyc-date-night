@@ -17,7 +17,6 @@ interface DateFinderFormProps {
 
 export default function DateFinderForm({ onSubmit, initialPreferences }: DateFinderFormProps) {
   const [formData, setFormData] = useState<DatePreferences>({
-    budget: [],
     neighborhoods: initialPreferences?.neighborhoods || [],
     timeOfDay: initialPreferences?.timeOfDay || [],
     activities: initialPreferences?.activities || [],

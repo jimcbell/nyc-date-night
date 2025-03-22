@@ -2,7 +2,7 @@ import { useState } from 'react'
 import DateFinderForm from './components/DateFinderForm'
 import ResultsView from './components/ResultsView'
 import Ad from './components/Ad'
-import { dateIdeas, DateIdea } from './data/dateIdeas'
+import { dateIdeas } from './data/dateIdeas'
 import './styles/custom.css'
 
 export interface DatePreferences {

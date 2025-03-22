@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DatePreferences } from '../App'
 import { DateIdea } from '../data/dateIdeas'
-import { getPriceRangeText, getTicketText, getTicketClass } from '../utils/priceUtils'
+import { getPriceRangeText, getTicketText } from '../utils/priceUtils'
 import Ad from './Ad'
 import BudgetFilter from './BudgetFilter'
 import { MapPinIcon, ClockIcon, TagIcon, UserIcon, CloudIcon } from '@heroicons/react/24/outline'
