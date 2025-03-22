@@ -3,9 +3,9 @@ import DateFinderForm from './components/DateFinderForm'
 import ResultsView from './components/ResultsView'
 import Ad from './components/Ad'
 import { dateIdeas, DateIdea } from './data/dateIdeas'
+import './styles/custom.css'
 
 export interface DatePreferences {
-  budget: string[]
   neighborhoods: string[]
   timeOfDay: string[]
   activities: string[]
@@ -16,63 +16,57 @@ export interface DatePreferences {
 function App() {
   const [showResults, setShowResults] = useState(false)
   const [preferences, setPreferences] = useState<DatePreferences | null>(null)
+  const [filteredIdeas, setFilteredIdeas] = useState(dateIdeas)
 
-  const handleSubmit = (data: DatePreferences) => {
+  const handleFormSubmit = (data: DatePreferences) => {
     setPreferences(data)
-    setShowResults(true)
-  }
+    
+    // Filter date ideas based on preferences
+    const filtered = dateIdeas.filter(idea => {
+      // Neighborhood match
+      const neighborhoodMatch = data.neighborhoods.length === 0 || 
+        data.neighborhoods.some(neighborhood => 
+          idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
+        )
 
-  const handleBackToForm = () => {
-    setShowResults(false)
-  }
+      // Time of day match
+      const timeMatch = data.timeOfDay.length === 0 || 
+        data.timeOfDay.some(time => {
+          if (time.toLowerCase() === 'any') return true
+          return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase())
+        })
 
-  const filterDateIdeas = (preferences: DatePreferences): DateIdea[] => {
-    return dateIdeas.filter(idea => {
-      // Budget filter - only apply if budgets are selected
-      const budgetMatch = preferences.budget.length === 0 || preferences.budget.includes(idea.priceRange)
+      // Activity type match
+      const activityMap: { [key: string]: string[] } = {
+        'Food & Drink': ['Dining'],
+        'Arts & Culture': ['Culture'],
+        'Outdoor & Sports': ['Active'],
+        'Entertainment': ['Entertainment']
+      }
+      const activityMatch = data.activities.length === 0 || 
+        data.activities.some(activity => 
+          activityMap[activity]?.includes(idea.activityType)
+        )
 
-      // Neighborhood filter - match if idea's neighborhood contains any selected neighborhood
-      const neighborhoodMatch = preferences.neighborhoods.some(neighborhood => 
-        idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
-      )
+      // Accessibility match
+      const accessibilityMatch = !data.accessibility || idea.accessibility.includes('wheelchair')
 
-      // Time of day filter - match if idea's time matches any selected time
-      const timeMatch = preferences.timeOfDay.some(time => {
-        // If user selected "Any", match any time of day
-        if (time.toLowerCase() === 'any') {
-          return true;
-        }
-        // If idea has multiple times, check if any match
-        return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase());
-      })
-
-      // Activity type filter - match if idea's type matches any selected activity
-      const activityMatch = preferences.activities.some(activity => {
-        // Map form activities to idea types
-        const activityMap: { [key: string]: string[] } = {
-          'Food & Drink': ['Dining'],
-          'Arts & Culture': ['Culture'],
-          'Outdoor & Sports': ['Active'],
-          'Entertainment': ['Entertainment']
-        }
-        return activityMap[activity]?.includes(idea.activityType) || false
-      })
-
-      // Accessibility filter - only apply if accessibility is required
-      const accessibilityMatch = !preferences.accessibility || idea.accessibility.length > 0
-
-      // Dietary restrictions filter - only apply if food & drink is selected and restrictions are specified
-      const dietaryMatch = !preferences.activities.includes('Food & Drink') || 
-        preferences.dietaryRestrictions.length === 0 ||
-        preferences.dietaryRestrictions.some(restriction => 
+      // Dietary restrictions match
+      const dietaryMatch = !data.dietaryRestrictions.length || 
+        data.dietaryRestrictions.every(restriction => 
           idea.dietaryOptions.includes(restriction.toLowerCase())
         )
 
-      return budgetMatch && neighborhoodMatch && timeMatch && activityMatch && accessibilityMatch && dietaryMatch
+      return neighborhoodMatch && timeMatch && activityMatch && accessibilityMatch && dietaryMatch
     })
+
+    setFilteredIdeas(filtered)
+    setShowResults(true)
   }
 
-  const filteredIdeas = preferences ? filterDateIdeas(preferences) : []
+  const handleBack = () => {
+    setShowResults(false)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -117,7 +111,7 @@ function App() {
                 <h2 className="text-xl font-semibold text-gray-900 mb-6">
                   Find Your Perfect Date Night
                 </h2>
-                <DateFinderForm onSubmit={handleSubmit} initialPreferences={preferences} />
+                <DateFinderForm onSubmit={handleFormSubmit} initialPreferences={preferences} />
               </div>
             </div>
           </div>
@@ -126,7 +120,7 @@ function App() {
             <div className="flex-1">
               <ResultsView 
                 preferences={preferences!} 
-                onBack={handleBackToForm}
+                onBack={handleBack}
                 filteredIdeas={filteredIdeas}
               />
             </div>

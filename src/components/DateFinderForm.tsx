@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
 import { dateIdeas } from '../data/dateIdeas'
+import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon, UserIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import '../styles/custom.css'
 
 interface FormErrors {
   neighborhoods?: string
   timeOfDay?: string
   activities?: string
-  dietaryRestrictions?: string
 }
 
 interface DateFinderFormProps {
@@ -43,22 +44,18 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
         'Entertainment': ['Entertainment']
       }
 
-      // Check if any ideas match the current filters for this activity type
       return dateIdeas.some(idea => {
-        // Neighborhood match
         const neighborhoodMatch = formData.neighborhoods.length === 0 || 
           formData.neighborhoods.some(neighborhood => 
             idea.neighborhood.toLowerCase().includes(neighborhood.toLowerCase())
           )
         
-        // Time of day match
         const timeMatch = formData.timeOfDay.length === 0 || 
           formData.timeOfDay.some(time => {
             if (time.toLowerCase() === 'any') return true
             return idea.timeOfDay.some(ideaTime => ideaTime.toLowerCase() === time.toLowerCase())
           })
 
-        // Activity type match
         const activityTypeMatch = activityMap[activity]?.includes(idea.activityType)
 
         return neighborhoodMatch && timeMatch && activityTypeMatch
@@ -103,15 +100,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     }))
   }
 
-  const handleDietaryChange = (restriction: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      dietaryRestrictions: checked
-        ? [...prev.dietaryRestrictions, restriction]
-        : prev.dietaryRestrictions.filter(r => r !== restriction)
-    }))
-  }
-
   const validateForm = () => {
     const newErrors: FormErrors = {}
     
@@ -126,12 +114,6 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
     if (formData.activities.length === 0) {
       newErrors.activities = 'Please select at least one activity type'
     }
-    
-    // Only validate dietary restrictions if Food & Drink is selected and there are dietary restrictions
-    if (formData.activities.includes('Food & Drink') && formData.dietaryRestrictions.length === 0) {
-      // Remove this validation as it's optional
-      // newErrors.dietaryRestrictions = 'Please select at least one dietary option'
-    }
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -145,136 +127,153 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Neighborhoods Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Neighborhoods</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((neighborhood) => (
-            <label key={neighborhood} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.neighborhoods.includes(neighborhood)
-                ? 'bg-primary-50 border-primary-500 text-primary-700'
-                : 'hover:bg-gray-50'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.neighborhoods.includes(neighborhood)}
-                onChange={(e) => handleNeighborhoodChange(neighborhood, e.target.checked)}
-                className="sr-only"
-              />
-              <span>{neighborhood}</span>
-            </label>
-          ))}
+    <div className="min-h-screen bg-gray-50">
+      {/* Header with wave pattern */}
+      <div className="header-wave">
+        <div className="container mx-auto px-4 py-12">
+          <h1 className="text-4xl font-bold text-white text-center mb-2">Find Your Perfect Date Night</h1>
+          <p className="text-white text-center text-lg">Discover NYC's best experiences tailored to your preferences</p>
         </div>
-        {errors.neighborhoods && <p className="mt-1 text-sm text-red-600">{errors.neighborhoods}</p>}
       </div>
 
-      {/* Time of Day Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Time of Day</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {['Daytime', 'Nighttime', 'Any'].map((time) => (
-            <label key={time} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-              formData.timeOfDay.includes(time)
-                ? 'bg-primary-50 border-primary-500 text-primary-700'
-                : 'hover:bg-gray-50'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.timeOfDay.includes(time)}
-                onChange={(e) => handleTimeOfDayChange(time, e.target.checked)}
-                className="sr-only"
-              />
-              <span>{time}</span>
-            </label>
-          ))}
-        </div>
-        {errors.timeOfDay && <p className="mt-1 text-sm text-red-600">{errors.timeOfDay}</p>}
+      {/* Decorative circles */}
+      <div className="decorative-circles">
+        <div className="decorative-circle circle-1"></div>
+        <div className="decorative-circle circle-2"></div>
+        <div className="decorative-circle circle-3"></div>
       </div>
 
-      {/* Activities Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Activities</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {['Food & Drink', 'Arts & Culture', 'Outdoor & Sports', 'Entertainment'].map((activity) => {
-            const isAvailable = availableActivities.includes(activity)
-            return (
-              <label 
-                key={activity} 
-                className={`relative flex items-center p-4 border rounded-lg transition-colors ${
-                  !isAvailable 
-                    ? 'bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed'
-                    : formData.activities.includes(activity)
-                      ? 'bg-primary-50 border-primary-500 text-primary-700'
-                      : 'hover:bg-gray-50 cursor-pointer'
-                }`}
-              >
-                <input
-                  type="checkbox"
-                  checked={formData.activities.includes(activity)}
-                  onChange={(e) => handleActivityChange(activity, e.target.checked)}
-                  disabled={!isAvailable}
-                  className="sr-only"
-                />
-                <span>{activity}</span>
-              </label>
-            )
-          })}
-        </div>
-        {errors.activities && <p className="mt-1 text-sm text-red-600">{errors.activities}</p>}
-      </div>
-
-      {/* Accessibility Section */}
-      <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Accessibility</h3>
-        <label className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-          formData.accessibility
-            ? 'bg-primary-50 border-primary-500 text-primary-700'
-            : 'hover:bg-gray-50'
-        }`}>
-          <input
-            type="checkbox"
-            checked={formData.accessibility}
-            onChange={(e) => handleChange('accessibility', e.target.checked)}
-            className="sr-only"
-          />
-          <span>Wheelchair Accessible</span>
-        </label>
-      </div>
-
-      {/* Dietary Restrictions Section */}
-      {formData.activities.includes('Food & Drink') && (
-        <div>
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Dietary Restrictions</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {['Vegetarian', 'Vegan', 'Gluten-Free', 'Halal', 'Kosher'].map((restriction) => (
-              <label key={restriction} className={`relative flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
-                formData.dietaryRestrictions.includes(restriction)
-                  ? 'bg-primary-50 border-primary-500 text-primary-700'
-                  : 'hover:bg-gray-50'
-              }`}>
-                <input
-                  type="checkbox"
-                  checked={formData.dietaryRestrictions.includes(restriction)}
-                  onChange={(e) => handleDietaryChange(restriction, e.target.checked)}
-                  className="sr-only"
-                />
-                <span>{restriction}</span>
-              </label>
-            ))}
+      {/* Main form card */}
+      <div className="container mx-auto px-4">
+        <form onSubmit={handleSubmit} className="form-card">
+          {/* Neighborhoods Section */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+              <MapPinIcon className="w-5 h-5 mr-2 text-teal-500" />
+              Neighborhoods
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((neighborhood) => (
+                <label key={neighborhood} className={`option-button ${
+                  formData.neighborhoods.includes(neighborhood)
+                    ? 'option-button--selected'
+                    : 'option-button--unselected'
+                }`}>
+                  <input
+                    type="checkbox"
+                    checked={formData.neighborhoods.includes(neighborhood)}
+                    onChange={(e) => handleNeighborhoodChange(neighborhood, e.target.checked)}
+                    className="sr-only"
+                  />
+                  <MapPinIcon className="option-icon" />
+                  <span>{neighborhood}</span>
+                </label>
+              ))}
+            </div>
+            {errors.neighborhoods && <p className="mt-2 text-sm text-red-600">{errors.neighborhoods}</p>}
           </div>
-          {errors.dietaryRestrictions && <p className="mt-1 text-sm text-red-600">{errors.dietaryRestrictions}</p>}
-        </div>
-      )}
 
-      <div className="mt-8">
-        <button
-          type="submit"
-          className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
-        >
-          Find Date Ideas
-        </button>
+          {/* Time of Day Section */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+              <ClockIcon className="w-5 h-5 mr-2 text-teal-500" />
+              Time of Day
+            </h3>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: 'Daytime', icon: SunIcon },
+                { label: 'Nighttime', icon: MoonIcon },
+                { label: 'Any', icon: ClockIcon }
+              ].map(({ label, icon: Icon }) => (
+                <label key={label} className={`option-button ${
+                  formData.timeOfDay.includes(label)
+                    ? 'option-button--selected'
+                    : 'option-button--unselected'
+                }`}>
+                  <input
+                    type="checkbox"
+                    checked={formData.timeOfDay.includes(label)}
+                    onChange={(e) => handleTimeOfDayChange(label, e.target.checked)}
+                    className="sr-only"
+                  />
+                  <Icon className="option-icon" />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+            {errors.timeOfDay && <p className="mt-2 text-sm text-red-600">{errors.timeOfDay}</p>}
+          </div>
+
+          {/* Activities Section */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+              <TicketIcon className="w-5 h-5 mr-2 text-teal-500" />
+              Activities
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+              {[
+                { label: 'Food & Drink', icon: BeakerIcon },
+                { label: 'Arts & Culture', icon: PaintBrushIcon },
+                { label: 'Outdoor & Sports', icon: UserGroupIcon },
+                { label: 'Entertainment', icon: TicketIcon }
+              ].map(({ label, icon: Icon }) => {
+                const isAvailable = availableActivities.includes(label)
+                return (
+                  <label 
+                    key={label} 
+                    className={`option-button ${
+                      !isAvailable 
+                        ? 'option-button--disabled'
+                        : formData.activities.includes(label)
+                          ? 'option-button--selected'
+                          : 'option-button--unselected'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.activities.includes(label)}
+                      onChange={(e) => handleActivityChange(label, e.target.checked)}
+                      disabled={!isAvailable}
+                      className="sr-only"
+                    />
+                    <Icon className="option-icon" />
+                    <span>{label}</span>
+                  </label>
+                )
+              })}
+            </div>
+            {errors.activities && <p className="mt-2 text-sm text-red-600">{errors.activities}</p>}
+          </div>
+
+          {/* Accessibility Section */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
+              <UserIcon className="w-5 h-5 mr-2 text-teal-500" />
+              Accessibility
+            </h3>
+            <label className={`option-button ${
+              formData.accessibility
+                ? 'option-button--selected'
+                : 'option-button--unselected'
+            }`}>
+              <input
+                type="checkbox"
+                checked={formData.accessibility}
+                onChange={(e) => handleChange('accessibility', e.target.checked)}
+                className="sr-only"
+              />
+              <UserIcon className="option-icon" />
+              <span>Wheelchair Accessible</span>
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <button type="submit" className="cta-button">
+            <MagnifyingGlassIcon className="w-6 h-6" />
+            Find Date Ideas
+          </button>
+        </form>
       </div>
-    </form>
+    </div>
   )
 } 
