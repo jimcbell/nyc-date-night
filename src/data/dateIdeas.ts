@@ -216,7 +216,7 @@ export const dateIdeas: DateIdea[] = [
     description: "Explore one of the world's largest and most comprehensive art museums.",
     neighborhood: "Manhattan",
     priceRange: "$$",
-    activityType: "Arts & Culture",
+    activityType: "Culture",
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: [],
