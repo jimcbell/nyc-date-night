@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { DatePreferences } from '../App'
 import { dateIdeas } from '../data/dateIdeas'
-import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon, UserIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, SunIcon, MoonIcon, ClockIcon, BeakerIcon, PaintBrushIcon, UserGroupIcon, TicketIcon, UserIcon, MagnifyingGlassIcon, TvIcon } from '@heroicons/react/24/outline'
 import '../styles/custom.css'
 
 interface FormErrors {
@@ -204,66 +204,78 @@ export default function DateFinderForm({ onSubmit, initialPreferences }: DateFin
           </div>
 
           {/* Activities Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <TicketIcon className="w-5 h-5 mr-2 text-teal-500" />
-              Activities
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
-              {[
-                { label: 'Food & Drink', icon: BeakerIcon },
-                { label: 'Arts & Culture', icon: PaintBrushIcon },
-                { label: 'Outdoor & Sports', icon: UserGroupIcon },
-                { label: 'Entertainment', icon: TicketIcon }
-              ].map(({ label, icon: Icon }) => {
-                const isAvailable = availableActivities.includes(label)
-                return (
-                  <label 
-                    key={label} 
-                    className={`option-button ${
-                      !isAvailable 
-                        ? 'option-button--disabled'
-                        : formData.activities.includes(label)
-                          ? 'option-button--selected'
-                          : 'option-button--unselected'
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.activities.includes(label)}
-                      onChange={(e) => handleActivityChange(label, e.target.checked)}
-                      disabled={!isAvailable}
-                      className="sr-only"
-                    />
-                    <Icon className="option-icon" />
-                    <span>{label}</span>
-                  </label>
-                )
-              })}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <TvIcon className="w-5 h-5" />
+              <h2 className="text-lg font-medium">Activities</h2>
             </div>
-            {errors.activities && <p className="mt-2 text-sm text-red-600">{errors.activities}</p>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                className={`option-button ${
+                  formData.activities.includes('Food & Drink') ? 'option-button--selected' : 'option-button--unselected'
+                }`}
+                onClick={() => handleActivityChange('Food & Drink', true)}
+              >
+                <BeakerIcon className="option-icon" />
+                Food & Drink
+              </button>
+              <button
+                type="button"
+                className={`option-button ${
+                  formData.activities.includes('Arts & Culture') ? 'option-button--selected' : 'option-button--unselected'
+                }`}
+                onClick={() => handleActivityChange('Arts & Culture', true)}
+              >
+                <PaintBrushIcon className="option-icon" />
+                Arts & Culture
+              </button>
+              <button
+                type="button"
+                className={`option-button ${
+                  formData.activities.includes('Outdoor & Sports') ? 'option-button--selected' : 'option-button--unselected'
+                }`}
+                onClick={() => handleActivityChange('Outdoor & Sports', true)}
+              >
+                <UserGroupIcon className="option-icon" />
+                Outdoor & Sports
+              </button>
+              <button
+                type="button"
+                className={`option-button ${
+                  formData.activities.includes('Entertainment') ? 'option-button--selected' : 'option-button--unselected'
+                }`}
+                onClick={() => handleActivityChange('Entertainment', true)}
+              >
+                <TvIcon className="option-icon" />
+                Entertainment
+              </button>
+            </div>
           </div>
+          {errors.activities && <p className="mt-2 text-sm text-red-600">{errors.activities}</p>}
 
           {/* Accessibility Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center">
-              <UserIcon className="w-5 h-5 mr-2 text-teal-500" />
-              Accessibility
-            </h3>
-            <label className={`option-button ${
-              formData.accessibility
-                ? 'option-button--selected'
-                : 'option-button--unselected'
-            }`}>
-              <input
-                type="checkbox"
-                checked={formData.accessibility}
-                onChange={(e) => handleChange('accessibility', e.target.checked)}
-                className="sr-only"
-              />
-              <UserIcon className="option-icon" />
-              <span>Wheelchair Accessible</span>
-            </label>
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <UserIcon className="w-5 h-5" />
+              <h2 className="text-lg font-medium">Accessibility</h2>
+            </div>
+            <div>
+              <label className={`option-button ${
+                formData.accessibility
+                  ? 'option-button--selected'
+                  : 'option-button--unselected'
+              }`}>
+                <input
+                  type="checkbox"
+                  checked={formData.accessibility}
+                  onChange={(e) => handleChange('accessibility', e.target.checked)}
+                  className="sr-only"
+                />
+                <UserIcon className="option-icon" />
+                <span>Wheelchair Accessible</span>
+              </label>
+            </div>
           </div>
 
           {/* Submit Button */}
