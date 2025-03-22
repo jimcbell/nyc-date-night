@@ -1165,7 +1165,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning"],
+    timeOfDay: ["Daytime"],
     weatherDependent: true,
     requiresTicket: false,
     websiteUrl: "https://bryantpark.org/programs/yoga"
@@ -1195,7 +1195,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning"],
+    timeOfDay: ["Daytime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.harlemspiritualtour.com"
@@ -1330,7 +1330,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: ["wheelchair"],
     dietaryOptions: ["vegetarian"],
-    timeOfDay: ["Daytime", "Nighttime", "late-night"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.brooklynbowl.com"
@@ -1375,7 +1375,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["Nighttime", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: false,
     websiteUrl: "https://www.facebook.com/MariesCrisisBar/"
@@ -1450,7 +1450,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["Nighttime", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.smokejazz.com"
@@ -1480,7 +1480,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: false,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["morning", "Nighttime"],
+    timeOfDay: ["Daytime", "Nighttime"],
     weatherDependent: true,
     requiresTicket: true,
     websiteUrl: "https://www.hudsonvalleyballooning.com"
@@ -1525,7 +1525,7 @@ export const dateIdeas: DateIdea[] = [
     indoor: true,
     accessibility: [],
     dietaryOptions: [],
-    timeOfDay: ["Nighttime", "late-night"],
+    timeOfDay: ["Nighttime"],
     weatherDependent: false,
     requiresTicket: true,
     websiteUrl: "https://www.comedycellar.com"
